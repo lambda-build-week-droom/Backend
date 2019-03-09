@@ -1,3 +1,61 @@
+# Droom API
+
+## HEROKU DEPLOYMENT
+
+> https://droom-backend.herokuapp.com/
+
+---
+
+### START SERVER
+
+- run `yarn server`
+
+---
+
+## NAVIGATION
+
+### USERS
+
+[Register](#register)
+
+<!-- | [Login](#login) | [Get All Users](#allusers) | [Get User By Id](#getuserbyid) | [Get User Info](#userInfo) | [Update User](#updateUser) | [Delete User](#deleteUser) -->
+
+## ENDPOINTS
+
+## Users
+
+1. `Register User` <a name='register'></a>
+
+   _Method URL: /users/register_
+
+   _HTTP method: [POST]_
+
+   ### Headers
+
+   | name         | type   | required | description              |
+   | ------------ | ------ | -------- | ------------------------ |
+   | Content-type | String | Yes      | Must be application/json |
+
+   ### Body
+
+   | name      | type   | required | description              |
+   | --------- | ------ | -------- | ------------------------ |
+   | firstName | String | No       | required                 |
+   | lastName  | String | No       | required                 |
+   | email     | String | Yes      | required, must be unique |
+   | password  | String | Yes      | required                 |
+
+   _example_
+
+   ```
+       {
+           firstName: "John",
+           lastName: "Doe",
+           email: "johnDoe@test.com",
+           password: "password123"
+       }
+   ```
+
 # Proposal
 
 - What problem does your app solve?
@@ -25,8 +83,6 @@
 - Have you considered using Apple Frameworks? (MapKit, Healthkit, ARKit?)
 
 # For Data Scientists
-
-
 
 - Describe the Established data source with at least rough data able to be provided on day 1.
 
