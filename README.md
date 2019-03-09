@@ -1,7 +1,5 @@
 # Proposal
 
-test
-
 - What problem does your app solve?
 
 - Be as specific as possible; how does your app solve the problem?
