@@ -31,8 +31,7 @@ server.post('/api/register', async (req, res) => {
 	let user = req.body;
 	const hash = bcrypt.hashSync(user.password, 8);
 	user.password = hash;
-	console.log(user);
-	if (user.username && user.password) {
+	if (user.email && user.password) {
 		try {
 			const result = await db('users').insert(user);
 			res.status(201).json({ message: 'Successfully created user', result });
@@ -47,15 +46,15 @@ server.post('/api/register', async (req, res) => {
 });
 
 server.post('/api/login', async (req, res) => {
-	let { username, password } = req.body;
+	let { email, password } = req.body;
 
 	const user = await db('users')
-		.where('username', username)
+		.where('email', email)
 		.first();
 	if (user && bcrypt.compareSync(password, user.password)) {
 		try {
 			const token = generateToken(user);
-			res.status(200).json({ message: `Welcome ${user.username}!`, token });
+			res.status(200).json({ message: `Welcome ${user.firstName}!`, token });
 		} catch {
 			res.status(404).json({ message: 'unable to find that user' });
 		}
@@ -64,7 +63,7 @@ server.post('/api/login', async (req, res) => {
 	}
 });
 
-server.get('/api/users', async (req, res) => {
+server.get('/api/users', restricted, async (req, res) => {
 	try {
 		const users = await db('users').select(
 			'firstName',
