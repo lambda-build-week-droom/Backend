@@ -35,7 +35,17 @@ router.post('/login', async (req, res) => {
 	if (user && bcrypt.compareSync(password, user.password)) {
 		try {
 			const token = generateToken(user);
-			res.status(200).json({ message: `Welcome ${user.firstName}!`, token });
+			const userInfo = {
+				id: user.id,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				email: user.email,
+				occupation: user.occupation,
+				experience: user.experience,
+				interests: user.interests
+			};
+
+			res.status(200).json({ token, userInfo });
 		} catch {
 			res.status(404).json({ message: 'unable to find that user' });
 		}
@@ -47,9 +57,12 @@ router.post('/login', async (req, res) => {
 router.get('/', restricted, async (req, res) => {
 	try {
 		const users = await db('users').select(
+			'id',
 			'firstName',
 			'lastName',
-			'occupation'
+			'occupation',
+			'experience',
+			'interests'
 		);
 		res.status(200).json(users);
 	} catch {

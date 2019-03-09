@@ -1,5 +1,7 @@
 # Droom API
 
+[Proposal](#proposal)
+
 ## HEROKU DEPLOYMENT
 
 > https://droom-backend.herokuapp.com/
@@ -16,9 +18,7 @@
 
 ### USERS
 
-[Register](#register)
-
-<!-- | [Login](#login) | [Get All Users](#allusers) | [Get User By Id](#getuserbyid) | [Get User Info](#userInfo) | [Update User](#updateUser) | [Delete User](#deleteUser) -->
+[Register](#register) | [Login](#login) | [Get All Users](#allusers)
 
 ## ENDPOINTS
 
@@ -55,6 +55,91 @@
            password: "password123"
        }
    ```
+
+2. `Login User` <a name='login'></a>
+
+   _Method URL: /users/login_
+
+   _HTTP method: [POST]_
+
+   ### Headers
+
+   | name         | type   | required | description              |
+   | ------------ | ------ | -------- | ------------------------ |
+   | Content-type | String | Yes      | Must be application/json |
+
+   ### Body
+
+   | name     | type   | required | description |
+   | -------- | ------ | -------- | ----------- |
+   | email    | String | Yes      | required    |
+   | password | String | Yes      | required    |
+
+   _example_
+
+   ```
+       {
+           email: "johnDoe@test.com",
+           password: "password123"
+       }
+   ```
+
+   > On success return object
+
+   ```
+        {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoyMSwiaWF0IjoxNTUyMTczNDgzLCJleHAiOjE1NTI2MDU0ODN9.AIYdpeMoNtT3FHrSc1_Srrj3dLQfHl1gRNK3hicOe2M",
+            "userInfo": {
+                "id": 21,
+                "firstName": "mike",
+                "lastName": "landers",
+                "email": "test@test.com",
+                "occupation": null,
+                "experience": null,
+                "interests": null
+            }
+        }
+   ```
+
+3) `Get All Users` <a name='allusers'></a>
+
+   _Method URL: /users_
+
+   _HTTP method: [POST]_
+
+   ### Headers
+
+   | name          | type   | required | description              |
+   | ------------- | ------ | -------- | ------------------------ |
+   | Content-type  | String | Yes      | Must be application/json |
+   | Authorization | String | Yes      | Token                    |
+
+   ### Response
+
+   > On success return array
+
+   ```
+       [
+           {
+               "id": 1,
+               "firstName": "Orlando",
+               "lastName": "Nitzsche",
+               "occupation": "Regional Functionality Strategist",
+               "experience": "experience",
+               "interests": "interests"
+           },
+           {
+               "id": 2,
+               "firstName": "Delphine",
+               "lastName": "Shanahan",
+               "occupation": "Product Factors Orchestrator",
+               "experience": "experience",
+               "interests": "interests"
+           }
+       ]
+   ```
+
+<a name='proposal'></a>
 
 # Proposal
 
@@ -107,3 +192,7 @@ Research
 # Prototype Key Feature(s)
 
 - This is the &quot;bread and butter&quot; of the app, this is what makes your app yours. Calculate how long it takes to implement these features and triple the time estimated. That way you&#39;ll have plenty of time to finish. It is preferred to drop features and spend more time working on your MVP features if needed.
+
+```
+
+```
