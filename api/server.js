@@ -64,11 +64,14 @@ server.post('/api/login', async (req, res) => {
 	}
 });
 
-server.get('/api/users', restricted, async (req, res) => {
+server.get('/api/users', async (req, res) => {
 	try {
-		const users = await db('users').select('id', 'username', 'department');
-		const depts = await db('users').select('department');
-		res.status(200).json({ message: 'Success', users, depts });
+		const users = await db('users').select(
+			'firstName',
+			'lastName',
+			'occupation'
+		);
+		res.status(200).json(users);
 	} catch {
 		res.status(500).json({ message: 'Unexpected error' });
 	}
