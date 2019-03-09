@@ -1,5 +1,7 @@
 # Proposal
 
+test
+
 - What problem does your app solve?
 
 - Be as specific as possible; how does your app solve the problem?
@@ -25,8 +27,6 @@
 - Have you considered using Apple Frameworks? (MapKit, Healthkit, ARKit?)
 
 # For Data Scientists
-
-
 
 - Describe the Established data source with at least rough data able to be provided on day 1.
 
