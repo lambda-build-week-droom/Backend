@@ -1,10 +1,11 @@
 # Proposal
 
 - What problem does your app solve?
-
+  - Helps a user find their dream jonb
 - Be as specific as possible; how does your app solve the problem?
-
+  - Allows a user to quickly swipe through possible jobs to find the one they like the best
 - What is the mission statement?
+  - Match candidates with great companies
 
 # Features
 
@@ -25,8 +26,6 @@
 - Have you considered using Apple Frameworks? (MapKit, Healthkit, ARKit?)
 
 # For Data Scientists
-
-
 
 - Describe the Established data source with at least rough data able to be provided on day 1.
 
@@ -51,3 +50,10 @@ Research
 # Prototype Key Feature(s)
 
 - This is the &quot;bread and butter&quot; of the app, this is what makes your app yours. Calculate how long it takes to implement these features and triple the time estimated. That way you&#39;ll have plenty of time to finish. It is preferred to drop features and spend more time working on your MVP features if needed.
+
+  - authentication
+    - as user
+    - as company
+  - user profile
+  - company profile
+  - job postings linked to company profile
