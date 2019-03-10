@@ -26,7 +26,7 @@
 
 1. `Register User` <a name='register'></a>
 
-   _Method URL: /users/register_
+   _Method URL: /auth/register_
 
    _HTTP method: [POST]_
 
@@ -38,12 +38,13 @@
 
    ### Body
 
-   | name      | type   | required | description              |
-   | --------- | ------ | -------- | ------------------------ |
-   | firstName | String | No       | required                 |
-   | lastName  | String | No       | required                 |
-   | email     | String | Yes      | required, must be unique |
-   | password  | String | Yes      | required                 |
+   | name      | type   | required | description                                  |
+   | --------- | ------ | -------- | -------------------------------------------- |
+   | firstName | String | No       | required                                     |
+   | lastName  | String | No       | required                                     |
+   | email     | String | Yes      | required, must be unique                     |
+   | password  | String | Yes      | required                                     |
+   | type      | string | yes      | required, must be either 'user' or 'company' |
 
    _example_
 
@@ -53,12 +54,13 @@
            lastName: "Doe",
            email: "johnDoe@test.com",
            password: "password123"
+           type:'user
        }
    ```
 
 2. `Login User` <a name='login'></a>
 
-   _Method URL: /users/login_
+   _Method URL: /auth/login_
 
    _HTTP method: [POST]_
 
@@ -74,6 +76,7 @@
    | -------- | ------ | -------- | ----------- |
    | email    | String | Yes      | required    |
    | password | String | Yes      | required    |
+   | type     | string | yes      | required    |
 
    _example_
 
@@ -81,10 +84,11 @@
        {
            email: "johnDoe@test.com",
            password: "password123"
+           type:'user'
        }
    ```
 
-   > On success return object
+   > On success return user object
 
    ```
         {
@@ -97,6 +101,21 @@
                 "occupation": null,
                 "experience": null,
                 "interests": null
+            }
+        }
+   ```
+
+   > On success return company object
+
+   ```
+        {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxLCJpYXQiOjE1NTIyNDU4ODgsImV4cCI6MTU1MjY3Nzg4OH0.JCY10oa6KVN5HttwK27PCLWr_m8SU9Ptz2lXoryuPeo",
+            "companyInfo": {
+                "id": 1,
+                "name": "apple",
+                "email": "test3@test.com",
+                "bio": null,
+                "address": null
             }
         }
    ```
@@ -118,7 +137,8 @@
 
    > On success return array
 
-   ```
+```
+
        [
            {
                "id": 1,
@@ -137,18 +157,19 @@
                "interests": "interests"
            }
        ]
-   ```
+
+```
 
 <a name='proposal'></a>
 
 # Proposal
 
 - What problem does your app solve?
-  - Helps a user find their dream jonb
+- Helps a user find their dream jonb
 - Be as specific as possible; how does your app solve the problem?
-  - Allows a user to quickly swipe through possible jobs to find the one they like the best
+- Allows a user to quickly swipe through possible jobs to find the one they like the best
 - What is the mission statement?
-  - Match candidates with great companies
+- Match candidates with great companies
 
 # Features
 
@@ -193,3 +214,7 @@ Research
 # Prototype Key Feature(s)
 
 - This is the &quot;bread and butter&quot; of the app, this is what makes your app yours. Calculate how long it takes to implement these features and triple the time estimated. That way you&#39;ll have plenty of time to finish. It is preferred to drop features and spend more time working on your MVP features if needed.
+
+```
+
+```
