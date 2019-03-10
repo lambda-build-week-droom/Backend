@@ -12,6 +12,7 @@ const cors = require('cors');
 // const { generateToken } = require('../data/helpers/helpers');
 
 const usersRoute = require('../data/routes/usersRoutes');
+const authRoute = require('../data/routes/authRoutes');
 
 const server = express();
 
@@ -22,6 +23,7 @@ server.use(express.json());
 
 // server.use('/apiUrl', requiredRoute)
 server.use('/users', usersRoute);
+server.use('/auth', authRoute);
 
 server.get('/', (req, res) => {
 	res.send('Sanity Check');
