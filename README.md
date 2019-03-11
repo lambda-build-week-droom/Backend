@@ -208,11 +208,16 @@
 # Proposal
 
 -   What problem does your app solve?
--   Helps a user find their dream jonb
+
+    -   Helps a user find their dream job
+
 -   Be as specific as possible; how does your app solve the problem?
--   Allows a user to quickly swipe through possible jobs to find the one they like the best
+
+    -   Allows a user to quickly swipe through possible jobs to find the one they like the best
+
 -   What is the mission statement?
--   Match candidates with great companies
+
+    -   Match candidates with great companies
 
 # Features
 
@@ -224,13 +229,18 @@
 
 # Frameworks
 
--   What 3rd party frameworks are you considering using?
+-   ## What 3rd party frameworks are you considering using?
+
+    -   Cloudinary
 
 -   Do APIs require you to contact its maintainer to gain access?
 
--   Are you required to pay to use the API?
+    -   No
 
+-   Are you required to pay to use the API?
+    -   No
 -   Have you considered using Apple Frameworks? (MapKit, Healthkit, ARKit?)
+    -   No
 
 # For Data Scientists
 

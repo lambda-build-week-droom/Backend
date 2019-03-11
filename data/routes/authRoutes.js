@@ -5,9 +5,10 @@ const knexConfig = require('../../knexfile');
 const db = knex(knexConfig.development);
 
 const { generateToken } = require('../helpers/helpers');
+const { emailCheck } = require('../middleware/middleware');
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
+router.post('/register', emailCheck, async (req, res) => {
 	// eamil, password, type =  required
 	// firstName, lastname, occupation, expereience, interests = optional for user
 	// name, bio, address
@@ -21,11 +22,10 @@ router.post('/register', async (req, res) => {
 					email: user.email,
 					password: user.password,
 				};
-				console.log(newUser);
 				const result = await db('users').insert(newUser);
 				res.status(201).json({ message: 'Successfully created user account', result });
 			} catch (error) {
-				res.status(400).json({ message: 'unable to process', error });
+				// res.status(400).json({ message: 'Email address is already in use', error });
 			}
 		} else {
 			res.status(404).json({
@@ -33,7 +33,6 @@ router.post('/register', async (req, res) => {
 			});
 		}
 	} else if (user.type === 'company') {
-		console.log('company');
 		if (user.email && user.password) {
 			try {
 				const newCompany = {
@@ -45,7 +44,7 @@ router.post('/register', async (req, res) => {
 				const result = await db('companies').insert(newCompany);
 				res.status(201).json({ message: 'Successfully created company', result });
 			} catch {
-				res.status(400).json({ message: 'unable to process' });
+				// res.status(400).json({ message: 'Email address is already in use' });
 			}
 		} else {
 			res.status(404).json({
