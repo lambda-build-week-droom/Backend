@@ -25,10 +25,9 @@ function getJobById(id) {
 		.first();
 }
 
-function updateJob(user, updateInfo) {
-	console.log(updateInfo);
-	return db('users')
-		.where('email', user.email)
+function updateJob(id, updateInfo) {
+	return db('jobPosting')
+		.where('id', id)
 		.update(updateInfo);
 }
 

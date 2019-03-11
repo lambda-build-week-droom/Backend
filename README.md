@@ -30,6 +30,10 @@
 
 [Get All Companies](#allCompanies) | [Get Company Info](#getCompanyInfo) | [Get Company by Id](#getCompanyById) | [Update Company](#updateCompany)
 
+#### Jobs
+
+[Get All Jobs](#getAllJobs) | [Create Job](#createJob) | [Get Job by Id](#getJobById) | [Update Job](#updateJob)
+
 ## ENDPOINTS
 
 ## Authentication

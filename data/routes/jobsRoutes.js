@@ -54,13 +54,13 @@ router.get('/:id', restricted, async (req, res) => {
 	res.status(200).json(result);
 });
 
-//Update Job
-// router.put('/update/:id', restricted, async (req, res) => {
-// 	const updateInfo = req.body;
-// 	const { id } = req.params;
-// 	const result = await jobsHelper.updateJob(req.decodedToken, updateInfo);
-// 	res.status(200).json(result); // returns a 1 if updated
-// });
+// Update Job
+router.put('/update/:id', restricted, async (req, res) => {
+	const updateInfo = req.body;
+	const { id } = req.params;
+	const result = await jobsHelper.updateJob(id, updateInfo);
+	res.status(200).json(result); // returns a 1 if updated
+});
 
 //Delete User
 // router.delete('/delete', restricted, async (req, res) => {
