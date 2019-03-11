@@ -14,6 +14,8 @@
 
 ---
 
+[Axios Example](#axios_example)
+
 ## NAVIGATION
 
 [Register](#register) | [Login](#login) | [Get All Users](#allusers)
@@ -48,7 +50,7 @@
         {
             email: "johnDoe@test.com",
             password: "password123"
-            type:'user
+            type:'user'
         }
     ```
 
@@ -67,9 +69,11 @@
         {
             email: "johnDoe@test.com",
             password: "password123"
-            type:'user
+            type:'company'
         }
     ```
+
+---
 
 2.  `Login` <a name='login'></a>
 
@@ -94,9 +98,8 @@
 
     ```
         {
-            email: "johnDoe@test.com",
+            email: "test@test.com",
             password: "password123"
-            type:'user'
         }
     ```
 
@@ -132,7 +135,9 @@
          }
     ```
 
-3) `Get All Users` <a name='allusers'></a>
+---
+
+3. `Get All Users` <a name='allusers'></a>
 
     _Method URL: /users_
 
@@ -171,6 +176,32 @@
        ]
 
 ```
+
+---
+
+<a name='axios_examples'></a>
+
+## Axios Examples
+
+1. `Axios Post Request` <a name='axiosPost'></a>
+
+    ```
+        axios({
+            method: "post",
+            url: `https://${API_URL}/endpoint`,
+            headers: {
+                Authorization: token
+            },
+            data: {
+                email: "johndoe@email.com",
+                password: "password123"
+            }
+            })
+            .then((res) => console.log(res))
+            .catch(err => console.log("error", err))
+    ```
+
+---
 
 <a name='proposal'></a>
 
