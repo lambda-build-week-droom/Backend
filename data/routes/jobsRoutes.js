@@ -4,11 +4,34 @@ const express = require('express');
 // const db = knex(knexConfig.development);
 
 const jobsHelper = require('../helpers/jobsHelper');
+const companyHelper = require('../helpers/companyHelper');
 
 const { restricted } = require('../middleware/middleware');
 const router = express.Router();
 
-//Get All Users
+// Create Job
+router.post('/', restricted, async (req, res) => {
+	// jobTitle
+	// jobPosition
+	// jobDescription
+	// jobRequirements
+	// jobSalary
+	// jobTags
+	// jobOpenDate
+	// jobCloseDate
+	// company_id
+	const company = await companyHelper.getCompanyById(req.body.company_id);
+	try {
+		if (company) {
+			console.log(company.id);
+			const result = jobsHelper.createJob(req.body);
+			res.status(201).json(result);
+		} else {
+			res.status(400).json({ message: 'Invalid company id' });
+		}
+	} catch {}
+});
+//Get All Jobs
 router.get('/', restricted, async (req, res) => {
 	try {
 		const result = await jobsHelper.getAllJobs();
@@ -24,20 +47,20 @@ router.get('/info', restricted, async (req, res) => {
 	res.status(200).json(result);
 });
 
-// Get User by ID
+// Get Job by ID
 router.get('/:id', restricted, async (req, res) => {
 	const { id } = req.params;
-	const result = await userHelper.getUserById(id);
+	const result = await jobsHelper.getJobById(id);
 	res.status(200).json(result);
 });
 
-//Update User
-router.put('/update', restricted, async (req, res) => {
-	console.log(req.decodedToken);
-	const updateInfo = req.body;
-	const result = await userHelper.updateUser(req.decodedToken, updateInfo);
-	res.status(200).json(result); // returns a 1 if updated
-});
+//Update Job
+// router.put('/update/:id', restricted, async (req, res) => {
+// 	const updateInfo = req.body;
+// 	const { id } = req.params;
+// 	const result = await jobsHelper.updateJob(req.decodedToken, updateInfo);
+// 	res.status(200).json(result); // returns a 1 if updated
+// });
 
 //Delete User
 // router.delete('/delete', restricted, async (req, res) => {

@@ -369,7 +369,21 @@
         "companyName": "Apple",
         "email": "hr@apple.com",
         "bio": null,
-        "address": "1 Infinite Loop"
+        "address": "1 Infinite Loop",
+        "companyJobs": [
+            {
+                "id": 3,
+                "jobTitle": "title",
+                "jobPosition": "Position",
+                "jobDescription": "Description",
+                "jobRequirements": "Requirements",
+                "jobSalary": 100000,
+                "jobTags": "tech, janitor",
+                "jobOpenDate": "March 11th, 2019",
+                "jobCloseDate": "June 1st, 2019",
+                "company_id": 2
+            }
+        ]
     }
 ```
 

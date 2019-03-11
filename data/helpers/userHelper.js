@@ -35,7 +35,6 @@ function getUserById(id) {
 }
 
 function updateUser(user, updateInfo) {
-	console.log(updateInfo);
 	return db('users')
 		.where('email', user.email)
 		.update(updateInfo);

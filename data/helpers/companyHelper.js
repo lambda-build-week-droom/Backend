@@ -38,7 +38,6 @@ async function getCompanyById(id) {
 }
 
 function updateCompany(user, updateInfo) {
-	console.log(updateInfo);
 	return db('companies')
 		.where('email', user.email)
 		.update(updateInfo);
