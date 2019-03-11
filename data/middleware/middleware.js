@@ -8,13 +8,14 @@ function restricted(req, res, next) {
 	if (token) {
 		jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
 			if (err) {
-				res.status(401).json({ message: 'Invalid token' });
+				res.status(401).json({ message: 'Invalid Token' });
 			} else {
+				req.decodedToken = decodedToken;
 				next();
 			}
 		});
 	} else {
-		res.status(500).json({ message: 'Sever error. Please try again' });
+		res.status(401).json({ message: 'No token provided' });
 	}
 }
 
@@ -22,7 +23,6 @@ async function emailCheck(req, res, next) {
 	const user = req.body;
 	const userAccount = await db('users').where('email', user.email);
 	const companyAccount = await db('companies').where('email', user.email);
-	console.log(userAccount, companyAccount);
 	if (userAccount.length > 0 || companyAccount.length > 0) {
 		res.status(400).json({ message: 'Email account alredy in use' });
 	} else {
