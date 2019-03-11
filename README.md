@@ -151,7 +151,9 @@
 
 ---
 
-3. `Get All Users` <a name='allusers'></a>
+## Users
+
+1. `Get All Users` <a name='allusers'></a>
 
     _Method URL: /users_
 
@@ -193,7 +195,7 @@
 
 ---
 
-4. `Get user info`<a name='getUserInfo'></a>
+2. `Get user info`<a name='getUserInfo'></a>
 
     _Method URL: /users/info_
 
@@ -224,7 +226,7 @@
 
 ---
 
-5. `Get user by ID`<a name='getUserById'></a>
+3. `Get user by ID`<a name='getUserById'></a>
 
     _Method URL: /users/:id_
 
@@ -255,7 +257,7 @@
 
 ---
 
-5. `Update User`<a name='updateUser'></a>
+4. `Update User`<a name='updateUser'></a>
 
     _Method URL: /users/update_
 
@@ -289,7 +291,10 @@
 
 ---
 
+## Companies
+
 1. `Get All Companies` <a name='allCompanies'></a>
+
    _Method URL: /companies_
 
     _HTTP method: [GET]_
@@ -325,8 +330,11 @@
     ]
 ```
 
-1. `Get Company Info` <a name='getCompanyInfo'></a>
-   _Method URL: /companies/info_
+---
+
+2. `Get Company Info` <a name='getCompanyInfo'></a>
+
+    _Method URL: /companies/info_
 
     _HTTP method: [GET]_
 
@@ -351,8 +359,11 @@
     }
 ```
 
-1. `Get Company by Id` <a name='getCompanyById'></a>
-   _Method URL: /companies/:id_
+---
+
+3. `Get Company by Id` <a name='getCompanyById'></a>
+
+    _Method URL: /companies/:id_
 
     _HTTP method: [GET]_
 
@@ -391,8 +402,11 @@
     }
 ```
 
-1. `Update Company` <a name='updateCompany'></a>
-   _Method URL: /users/update_
+---
+
+4. `Update Company` <a name='updateCompany'></a>
+
+    _Method URL: /companies/update_
 
     _HTTP method: [PUT]_
 
@@ -421,6 +435,160 @@
     ### Response
 
     > On success return `1`
+
+---
+
+#### Jobs
+
+1. `Get All Jobs` <a name='getAllJobs'></a>
+
+    _Method URL: /jobs_
+
+    _HTTP method: [GET]_
+
+    ### Headers
+
+    | name          | type   | required | description              |
+    | ------------- | ------ | -------- | ------------------------ |
+    | Content-type  | String | Yes      | Must be application/json |
+    | Authorization | String | Yes      | Token                    |
+
+    ### Response
+
+    > On success return array
+
+```
+
+    [
+        {
+            "id": 1,
+            "jobTitle": "Dynamic Program Administrator",
+            "jobPosition": "Consultant",
+            "jobDescription": "Direct",
+            "jobRequirements": "Web",
+            "jobSalary": 553,
+            "jobTags": "tempora",
+            "jobOpenDate": "1552312445647.0",
+            "jobCloseDate": "1579476170156.0",
+            "company_id": 11
+        },
+        {
+            "id": 2,
+            "jobTitle": "International Configuration Developer",
+            "jobPosition": "Supervisor",
+            "jobDescription": "Future",
+            "jobRequirements": "Marketing",
+            "jobSalary": 206,
+            "jobTags": "nostrum",
+            "jobOpenDate": "1552303764015.0",
+            "jobCloseDate": "1579102031521.0",
+            "company_id": 4
+        }
+    ]
+```
+
+---
+
+2. `Create Job` <a name='createJob'></a>
+
+    _Method URL: /jobs_
+
+    _HTTP method: [Post]_
+
+    ### Headers
+
+    | name          | type   | required | description              |
+    | ------------- | ------ | -------- | ------------------------ |
+    | Content-type  | String | Yes      | Must be application/json |
+    | Authorization | String | Yes      | Token                    |
+
+    ### Body
+
+    ```
+        {
+            id: 13,
+            jobTitle: "Customer Research Apprentice",
+            jobPosition: "Executive",
+            jobDescription: "Lead",
+            jobRequirements: "Accounts",
+            jobSalary: 704,
+            jobTags: "voluptas",
+            jobOpenDate: "1552282766773.0",
+            jobCloseDate: "1579250581673.0"
+        }
+    ```
+
+    ### Response
+
+    > On success return 1
+
+---
+
+3. `Get Job by Id` <a name='getJobById'></a>
+
+    _Method URL: /jobs/:id_
+
+    _HTTP method: [GET]_
+
+    ### Headers
+
+    | name          | type   | required | description              |
+    | ------------- | ------ | -------- | ------------------------ |
+    | Content-type  | String | Yes      | Must be application/json |
+    | Authorization | String | Yes      | Token                    |
+
+    ### Response
+
+    > On success return object
+
+```
+    {
+    "id": 13,
+    "jobTitle": "Customer Research Apprentice",
+    "jobPosition": "Executive",
+    "jobDescription": "Lead",
+    "jobRequirements": "Accounts",
+    "jobSalary": 704,
+    "jobTags": "voluptas",
+    "jobOpenDate": "1552282766773.0",
+    "jobCloseDate": "1579250581673.0",
+    "company_id": 1
+}
+```
+
+---
+
+4. `Update Job` <a name='updateJob'></a>
+
+    _Method URL: /jobs/update/:id_
+
+    _HTTP method: [PUT]_
+
+    ### Headers
+
+    | name          | type   | required | description                          |
+    | ------------- | ------ | -------- | ------------------------------------ |
+    | Content-type  | String | Yes      | Must be application/json             |
+    | Authorization | String | Yes      | Token must be from a company account |
+
+    ### Body
+
+    ```
+    Can send any part of the body that needs updating:
+
+    jobTitle, jobPosition, jobDescription, jobRequirements, jobSalary, jobTags, jobOpenDate, jobCloseDate
+    ```
+
+    ```
+       {
+           jobSalary: 50000,
+       }
+    ```
+
+    ### Response
+
+    > On success return `1`
+
 
 ---
 
