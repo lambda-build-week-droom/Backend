@@ -1,7 +1,7 @@
 const express = require('express');
-const knex = require('knex');
-const knexConfig = require('../../knexfile');
-const db = knex(knexConfig.development);
+// const knex = require('knex');
+// const knexConfig = require('../../knexfile');
+// const db = knex(knexConfig.development);
 
 const userHelper = require('../helpers/userHelper');
 
@@ -36,12 +36,13 @@ router.put('/update', restricted, async (req, res) => {
 	console.log(req.decodedToken);
 	const updateInfo = req.body;
 	const result = await userHelper.updateUser(req.decodedToken, updateInfo);
-	res.status(200).json(result);
+	res.status(200).json(result); // returns a 1 if updated
 });
 
 //Delete User
-router.get('/delete', restricted, async (req, res) => {
+router.delete('/delete', restricted, async (req, res) => {
 	const result = await userHelper.deleteUser(req.decodedToken);
+	res.status(204).json(result);
 });
 
 module.exports = router;

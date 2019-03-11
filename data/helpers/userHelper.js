@@ -55,8 +55,9 @@ function updateUser(user, updateInfo) {
 }
 
 function deleteUser(user) {
+	console.log('delete', user.email);
 	const userDelete = db('users')
 		.where('email', user.email)
 		.del();
-	return res[0];
+	return user.email;
 }
