@@ -40,7 +40,6 @@ router.post('/register', emailCheck, async (req, res) => {
 					email: user.email,
 					password: user.password,
 				};
-
 				const result = await db('companies').insert(newCompany);
 				res.status(201).json({ message: 'Successfully created company', result });
 			} catch {
