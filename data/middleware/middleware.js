@@ -22,9 +22,11 @@ async function emailCheck(req, res, next) {
 	const user = req.body;
 	const userAccount = await db('users').where('email', user.email);
 	const companyAccount = await db('companies').where('email', user.email);
-	if (userAccount || companyAccount) {
+	console.log(userAccount, companyAccount);
+	if (userAccount.length > 0 || companyAccount.length > 0) {
 		res.status(400).json({ message: 'Email account alredy in use' });
 	} else {
+		console.log('next');
 		next();
 	}
 }
