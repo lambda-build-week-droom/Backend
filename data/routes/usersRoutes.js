@@ -32,9 +32,16 @@ router.get('/:id', restricted, async (req, res) => {
 });
 
 //Update User
-router.get('/update', restricted, async (req, res) => {});
+router.put('/update', restricted, async (req, res) => {
+	console.log(req.decodedToken);
+	const updateInfo = req.body;
+	const result = await userHelper.updateUser(req.decodedToken, updateInfo);
+	res.status(200).json(result);
+});
 
 //Delete User
-router.get('/delete', restricted, async (req, res) => {});
+router.get('/delete', restricted, async (req, res) => {
+	const result = await userHelper.deleteUser(req.decodedToken);
+});
 
 module.exports = router;

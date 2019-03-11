@@ -37,7 +37,8 @@ function getAllUsers() {
 function getUserInfo(user) {
 	return db('users')
 		.where('email', user.email)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests');
+		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
+		.first();
 }
 function getUserById(id) {
 	return db('users')
@@ -47,22 +48,15 @@ function getUserById(id) {
 }
 
 function updateUser(user, updateInfo) {
+	console.log(updateInfo);
 	return db('users')
-		.where('id', user.id)
+		.where('email', user.email)
 		.update(updateInfo);
 }
 
 function deleteUser(user) {
 	const userDelete = db('users')
-		.where({ username: user.username })
+		.where('email', user.email)
 		.del();
-
-	const donationDelete = db('donationsNeeded')
-		.where({ userId: user.id })
-		.del();
-
-	return Promise.all([userDelete, donationDelete]).then(res => {
-		console.log(res);
-		return res[0];
-	});
+	return res[0];
 }
