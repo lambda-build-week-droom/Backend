@@ -40,9 +40,9 @@ router.put('/update', restricted, async (req, res) => {
 });
 
 //Delete User
-router.delete('/delete', restricted, async (req, res) => {
-	const result = await companyHelper.deleteCompany(req.decodedToken);
-	res.status(204).json(result);
-});
+// router.delete('/delete', restricted, async (req, res) => {
+// 	const result = await companyHelper.deleteCompany(req.decodedToken);
+// 	res.status(204).json(result);
+// });
 
 module.exports = router;

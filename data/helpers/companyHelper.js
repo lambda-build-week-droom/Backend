@@ -9,7 +9,7 @@ module.exports = {
 	getCompanyInfo,
 	getCompanyById,
 	updateCompany,
-	deleteCompany,
+	// deleteCompany,
 };
 
 // function registerUser(user) {
@@ -47,10 +47,10 @@ function updateCompany(user, updateInfo) {
 		.update(updateInfo);
 }
 
-function deleteCompany(user) {
-	console.log('delete', user.email);
-	const userDelete = db('companies')
-		.where('email', user.email)
-		.del();
-	return user.email;
-}
+// function deleteCompany(user) {
+// 	console.log('delete', user.email);
+// 	const userDelete = db('companies')
+// 		.where('email', user.email)
+// 		.del();
+// 	return user.email;
+// }
