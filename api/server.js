@@ -6,6 +6,7 @@ const cors = require('cors');
 
 const usersRoute = require('../data/routes/usersRoutes');
 const authRoute = require('../data/routes/authRoutes');
+const companyRoute = require('../data/routes/companyRoutes');
 
 const server = express();
 
@@ -15,8 +16,9 @@ server.use(morgan('dev'));
 server.use(express.json());
 
 // server.use('/apiUrl', requiredRoute)
-server.use('/users', usersRoute);
 server.use('/auth', authRoute);
+server.use('/users', usersRoute);
+server.use('/companies', companyRoute);
 
 server.get('/', (req, res) => {
 	res.send('Sanity Check');
