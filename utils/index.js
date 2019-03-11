@@ -1,31 +1,26 @@
-// const makeTwenty = (items) => {
-//     let item = []
-//     for (let i = 0; i < 20; i++) {
-//         item.push(items[i])
-//     }
-//     return item
-// }
-
-// module.exports = makeTwenty
 const faker = require('faker');
 
-const repeat = (item, num) => {
-    items = []
-    while (num !== 0) {
-        items.push(item)
-        return repeat(item, num - 1)
+function generateProfile() {
+    return {
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        occupation: faker.name.jobTitle(),
+        experience: 'experience',
+        interests: 'interests'
     }
-    return items
 }
 
-console.log(repeat({
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-    occupation: faker.name.jobTitle(),
-    experience: 'experience',
-    interests: 'interests'
-}, 20))
+function accumulate(cb, iterations) {
+    if (iterations > 0) {
+        return [cb()].concat(accumulate(cb, iterations - 1))
+    } else {
+        return []
+    }
+}
 
-module.exports = { repeat }
+const list = accumulate(generateProfile, 20)
+
+
+module.exports = { list }
