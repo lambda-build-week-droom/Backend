@@ -18,7 +18,17 @@
 
 ## NAVIGATION
 
-[Register](#register) | [Login](#login) | [Get All Users](#allusers)
+#### Authentication
+
+[Register](#register) | [Login](#login)
+
+#### Users
+
+[Get All Users](#allusers) | [Get User Info](#getUserInfo) | [Get User by Id](#getUserById) | [Update User](#updateUser)
+
+#### Companies
+
+[Get All Companies](#allCompanies) | [Get Company Info](#getCompanyInfo) | [Get Company by Id](#getCompanyById) | [Update Company](#updateCompany)
 
 ## ENDPOINTS
 
@@ -176,6 +186,223 @@
        ]
 
 ```
+
+---
+
+4. `Get user info`<a name='getUserInfo'></a>
+
+    _Method URL: /users/info_
+
+    _HTTP method: [GET]_
+
+    ### Headers
+
+    | name          | type   | required | description              |
+    | ------------- | ------ | -------- | ------------------------ |
+    | Content-type  | String | Yes      | Must be application/json |
+    | Authorization | String | Yes      | Token                    |
+
+    ### Response
+
+    > On success return object
+
+```
+    {
+        "id": 1,
+        "firstName": "Orlando",
+        "lastName": "Nitzsche",
+        "occupation": "Regional Functionality Strategist",
+        "experience": "experience",
+        "interests": "interests"
+    }
+
+```
+
+---
+
+5. `Get user by ID`<a name='getUserById'></a>
+
+    _Method URL: /users/:id_
+
+    _HTTP method: [GET]_
+
+    ### Headers
+
+    | name          | type   | required | description              |
+    | ------------- | ------ | -------- | ------------------------ |
+    | Content-type  | String | Yes      | Must be application/json |
+    | Authorization | String | Yes      | Token                    |
+
+    ### Response
+
+    > On success return object
+
+```
+    {
+        "id": 2,
+        "firstName": "Imani",
+        "lastName": "Heidenreich",
+        "occupation": "Future Tactics Agent",
+        "experience": "experience",
+        "interests": "interests"
+    }
+
+```
+
+---
+
+5. `Update User`<a name='updateUser'></a>
+
+    _Method URL: /users/update_
+
+    _HTTP method: [PUT]_
+
+    ### Headers
+
+    | name          | type   | required | description                       |
+    | ------------- | ------ | -------- | --------------------------------- |
+    | Content-type  | String | Yes      | Must be application/json          |
+    | Authorization | String | Yes      | Token must be from a user account |
+
+    ### Body
+
+    ```
+    Can send any part of the body that needs updating:
+
+    firstName, lastName, occupation, experience, interests
+    ```
+
+    ```
+       {
+           firstName: "John,
+           lastName: "Doe"
+       }
+    ```
+
+    ### Response
+
+    > On success return `1`
+
+---
+
+1. `Get All Companies` <a name='allCompanies'></a>
+   _Method URL: /companies_
+
+    _HTTP method: [GET]_
+
+    ### Headers
+
+    | name          | type   | required | description              |
+    | ------------- | ------ | -------- | ------------------------ |
+    | Content-type  | String | Yes      | Must be application/json |
+    | Authorization | String | Yes      | Token                    |
+
+    ### Response
+
+    > On success return array
+
+```
+
+    [
+        {
+            "id": 1,
+            "companyName": "Company",
+            "email": "user@company.com",
+            "bio": null,
+            "address": null
+        },
+        {
+            "id": 2,
+            "companyName": "Apple",
+            "email": "hr@apple.com",
+            "bio": null,
+            "address": "1 Infinite Loop"
+        }
+    ]
+```
+
+1. `Get Company Info` <a name='getCompanyInfo'></a>
+   _Method URL: /companies/info_
+
+    _HTTP method: [GET]_
+
+    ### Headers
+
+    | name          | type   | required | description              |
+    | ------------- | ------ | -------- | ------------------------ |
+    | Content-type  | String | Yes      | Must be application/json |
+    | Authorization | String | Yes      | Token                    |
+
+    ### Response
+
+    > On success return object
+
+```
+    {
+        "id": 2,
+        "companyName": "Apple",
+        "email": "hr@apple.com",
+        "bio": null,
+        "address": "1 Infinite Loop"
+    }
+```
+
+1. `Get Company by Id` <a name='getCompanyById'></a>
+   _Method URL: /companies/:id_
+
+    _HTTP method: [GET]_
+
+    ### Headers
+
+    | name          | type   | required | description              |
+    | ------------- | ------ | -------- | ------------------------ |
+    | Content-type  | String | Yes      | Must be application/json |
+    | Authorization | String | Yes      | Token                    |
+
+    ### Response
+
+    > On success return object
+
+```
+    {
+        "id": 2,
+        "companyName": "Apple",
+        "email": "hr@apple.com",
+        "bio": null,
+        "address": "1 Infinite Loop"
+    }
+```
+
+1. `Update Company` <a name='updateCompany'></a>
+   _Method URL: /users/update_
+
+    _HTTP method: [PUT]_
+
+    ### Headers
+
+    | name          | type   | required | description                          |
+    | ------------- | ------ | -------- | ------------------------------------ |
+    | Content-type  | String | Yes      | Must be application/json             |
+    | Authorization | String | Yes      | Token must be from a company account |
+
+    ### Body
+
+    ```
+    Can send any part of the body that needs updating:
+
+    companyName, email, bio, address
+    ```
+
+    ```
+       {
+           bio: "This is a new bio",
+           address: "123 Company St, Company Town, USA"
+       }
+    ```
+
+    ### Response
+
+    > On success return `1`
 
 ---
 

@@ -5,11 +5,11 @@ const db = knex(knexConfig.development);
 module.exports = {
 	// registerUser,
 	// loginUser,
-	getUserInfo,
-	getAllUsers,
-	getUserById,
-	updateUser,
-	// deleteUser,
+	getAllCompanies,
+	getCompanyInfo,
+	getCompanyById,
+	updateCompany,
+	// deleteCompany,
 };
 
 // function registerUser(user) {
@@ -23,40 +23,33 @@ module.exports = {
 // 		.first();
 // }
 
-function getAllUsers() {
-	return db('users').select(
-		'id',
-		'firstName',
-		'lastName',
-		'occupation',
-		'experience',
-		'interests'
-	);
+function getAllCompanies() {
+	return db('companies').select('id', 'companyName', 'email', 'bio', 'address');
 }
 
-function getUserInfo(user) {
-	return db('users')
+function getCompanyInfo(user) {
+	return db('companies')
 		.where('email', user.email)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
+		.select('id', 'companyName', 'email', 'bio', 'address')
 		.first();
 }
-function getUserById(id) {
-	return db('users')
+function getCompanyById(id) {
+	return db('companies')
 		.where('id', id)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
+		.select('id', 'companyName', 'email', 'bio', 'address')
 		.first();
 }
 
-function updateUser(user, updateInfo) {
+function updateCompany(user, updateInfo) {
 	console.log(updateInfo);
-	return db('users')
+	return db('companies')
 		.where('email', user.email)
 		.update(updateInfo);
 }
 
-// function deleteUser(user) {
+// function deleteCompany(user) {
 // 	console.log('delete', user.email);
-// 	const userDelete = db('users')
+// 	const userDelete = db('companies')
 // 		.where('email', user.email)
 // 		.del();
 // 	return user.email;
