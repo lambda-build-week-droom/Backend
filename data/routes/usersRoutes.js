@@ -24,8 +24,12 @@ router.get('/info', restricted, async (req, res) => {
 	res.status(200).json(result);
 });
 
-// Get User Info
-router.get('/:id', restricted, async (req, res) => {});
+// Get User by ID
+router.get('/:id', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await userHelper.getUserById(id);
+	res.status(200).json(result);
+});
 
 //Update User
 router.get('/update', restricted, async (req, res) => {});

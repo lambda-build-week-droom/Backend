@@ -41,8 +41,8 @@ function getUserInfo(user) {
 }
 function getUserById(id) {
 	return db('users')
-		.select('id', 'userName', 'firstName', 'lastName', 'userRole')
-		.where({ id: id })
+		.where('id', id)
+		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
 		.first();
 }
 
