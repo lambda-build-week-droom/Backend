@@ -52,7 +52,7 @@
     | -------- | ------ | -------- | ---------------------------------- |
     | email    | String | Yes      | must be unique                     |
     | password | String | Yes      | required                           |
-    | type     | string | Yes      | must be either 'user' or 'company' |
+    | type     | String | Yes      | must be either 'user' or 'company' |
 
     _example_
 

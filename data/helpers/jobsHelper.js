@@ -3,22 +3,28 @@ const knexConfig = require('../../knexfile');
 const db = knex(knexConfig.development);
 
 module.exports = {
+	// registerUser,
+	// loginUser,
+	getAllJobs,
 	getUserInfo,
-	getAllUsers,
 	getUserById,
 	updateUser,
 	// deleteUser,
 };
 
-function getAllUsers() {
-	return db('users').select(
-		'id',
-		'firstName',
-		'lastName',
-		'occupation',
-		'experience',
-		'interests'
-	);
+// function registerUser(user) {
+// 	user.userRole = user.userRole.toLowerCase();
+// 	return db('users').insert(user);
+// }
+
+// function loginUser(user) {
+// 	return db('users')
+// 		.where({ username: user.userName })
+// 		.first();
+// }
+
+function getAllJobs() {
+	return db('jobPosting');
 }
 
 function getUserInfo(user) {

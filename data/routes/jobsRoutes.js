@@ -3,45 +3,45 @@ const express = require('express');
 // const knexConfig = require('../../knexfile');
 // const db = knex(knexConfig.development);
 
-const companyHelper = require('../helpers/companyHelper');
+const jobsHelper = require('../helpers/jobsHelper');
 
 const { restricted } = require('../middleware/middleware');
 const router = express.Router();
 
-//Get All Companies
+//Get All Users
 router.get('/', restricted, async (req, res) => {
 	try {
-		const result = await companyHelper.getAllCompanies();
+		const result = await jobsHelper.getAllJobs();
 		res.status(200).json(result);
 	} catch {
 		res.status(500).json({ message: 'Internal server error' });
 	}
 });
 
-//Get logged in company
+//Get logged in user
 router.get('/info', restricted, async (req, res) => {
-	const result = await companyHelper.getCompanyInfo(req.decodedToken);
+	const result = await userHelper.getUserInfo(req.decodedToken);
 	res.status(200).json(result);
 });
 
-// Get Company by ID
+// Get User by ID
 router.get('/:id', restricted, async (req, res) => {
 	const { id } = req.params;
-	const result = await companyHelper.getCompanyById(id);
+	const result = await userHelper.getUserById(id);
 	res.status(200).json(result);
 });
 
-//Update Company
+//Update User
 router.put('/update', restricted, async (req, res) => {
 	console.log(req.decodedToken);
 	const updateInfo = req.body;
-	const result = await companyHelper.updateCompany(req.decodedToken, updateInfo);
+	const result = await userHelper.updateUser(req.decodedToken, updateInfo);
 	res.status(200).json(result); // returns a 1 if updated
 });
 
 //Delete User
 // router.delete('/delete', restricted, async (req, res) => {
-// 	const result = await companyHelper.deleteCompany(req.decodedToken);
+// 	const result = await userHelper.deleteUser(req.decodedToken);
 // 	res.status(204).json(result);
 // });
 

@@ -3,25 +3,12 @@ const knexConfig = require('../../knexfile');
 const db = knex(knexConfig.development);
 
 module.exports = {
-	// registerUser,
-	// loginUser,
 	getAllCompanies,
 	getCompanyInfo,
 	getCompanyById,
 	updateCompany,
 	// deleteCompany,
 };
-
-// function registerUser(user) {
-// 	user.userRole = user.userRole.toLowerCase();
-// 	return db('users').insert(user);
-// }
-
-// function loginUser(user) {
-// 	return db('users')
-// 		.where({ username: user.userName })
-// 		.first();
-// }
 
 function getAllCompanies() {
 	return db('companies').select('id', 'companyName', 'email', 'bio', 'address');
@@ -33,11 +20,21 @@ function getCompanyInfo(user) {
 		.select('id', 'companyName', 'email', 'bio', 'address')
 		.first();
 }
-function getCompanyById(id) {
-	return db('companies')
+async function getCompanyById(id) {
+	const jobs = await db('jobPosting').where('company_id', id);
+	const company = await db('companies')
 		.where('id', id)
 		.select('id', 'companyName', 'email', 'bio', 'address')
 		.first();
+	companyWithJobs = {
+		id: company.id,
+		companyName: company.companyName,
+		email: company.email,
+		bio: company.bio,
+		address: company.address,
+		companyJobs: jobs,
+	};
+	return companyWithJobs;
 }
 
 function updateCompany(user, updateInfo) {
