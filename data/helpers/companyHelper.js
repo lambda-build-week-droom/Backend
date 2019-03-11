@@ -7,9 +7,9 @@ module.exports = {
 	// loginUser,
 	getAllCompanies,
 	getCompanyInfo,
-	getUserById,
-	updateUser,
-	deleteUser,
+	getCompanyById,
+	updateCompany,
+	deleteCompany,
 };
 
 // function registerUser(user) {
@@ -33,21 +33,21 @@ function getCompanyInfo(user) {
 		.select('id', 'companyName', 'email', 'bio', 'address')
 		.first();
 }
-function getUserById(id) {
+function getCompanyById(id) {
 	return db('companies')
 		.where('id', id)
 		.select('id', 'companyName', 'email', 'bio', 'address')
 		.first();
 }
 
-function updateUser(user, updateInfo) {
+function updateCompany(user, updateInfo) {
 	console.log(updateInfo);
 	return db('companies')
 		.where('email', user.email)
 		.update(updateInfo);
 }
 
-function deleteUser(user) {
+function deleteCompany(user) {
 	console.log('delete', user.email);
 	const userDelete = db('companies')
 		.where('email', user.email)

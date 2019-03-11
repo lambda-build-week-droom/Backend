@@ -27,7 +27,7 @@ router.get('/info', restricted, async (req, res) => {
 // Get User by ID
 router.get('/:id', restricted, async (req, res) => {
 	const { id } = req.params;
-	const result = await companyHelper.getUserById(id);
+	const result = await companyHelper.getCompanyById(id);
 	res.status(200).json(result);
 });
 
@@ -35,13 +35,13 @@ router.get('/:id', restricted, async (req, res) => {
 router.put('/update', restricted, async (req, res) => {
 	console.log(req.decodedToken);
 	const updateInfo = req.body;
-	const result = await companyHelper.updateUser(req.decodedToken, updateInfo);
+	const result = await companyHelper.updateCompany(req.decodedToken, updateInfo);
 	res.status(200).json(result); // returns a 1 if updated
 });
 
 //Delete User
 router.delete('/delete', restricted, async (req, res) => {
-	const result = await companyHelper.deleteUser(req.decodedToken);
+	const result = await companyHelper.deleteCompany(req.decodedToken);
 	res.status(204).json(result);
 });
 
