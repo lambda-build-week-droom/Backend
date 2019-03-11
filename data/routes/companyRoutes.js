@@ -8,7 +8,7 @@ const companyHelper = require('../helpers/companyHelper');
 const { restricted } = require('../middleware/middleware');
 const router = express.Router();
 
-//Get All Users
+//Get All Companies
 router.get('/', restricted, async (req, res) => {
 	try {
 		const result = await companyHelper.getAllCompanies();
@@ -18,20 +18,20 @@ router.get('/', restricted, async (req, res) => {
 	}
 });
 
-//Get logged in user
+//Get logged in company
 router.get('/info', restricted, async (req, res) => {
 	const result = await companyHelper.getCompanyInfo(req.decodedToken);
 	res.status(200).json(result);
 });
 
-// Get User by ID
+// Get Company by ID
 router.get('/:id', restricted, async (req, res) => {
 	const { id } = req.params;
 	const result = await companyHelper.getCompanyById(id);
 	res.status(200).json(result);
 });
 
-//Update User
+//Update Company
 router.put('/update', restricted, async (req, res) => {
 	console.log(req.decodedToken);
 	const updateInfo = req.body;
