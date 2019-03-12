@@ -1,11 +1,12 @@
 const faker = require('faker');
+const bcrypt = require('bcryptjs');
 
 function generateProfile() {
 	return {
 		firstName: faker.name.firstName(),
 		lastName: faker.name.lastName(),
 		email: faker.internet.email(),
-		password: faker.internet.password(),
+		password: bcrypt.hashSync(faker.internet.password(), 8),
 		occupation: faker.name.jobTitle(),
 		experience: 'experience',
 		interests: 'interests',
@@ -37,6 +38,18 @@ function generateCompanies() {
 		address: faker.address.streetAddress(),
 	};
 }
+function generateSaves() {
+	return {
+		user_id: faker.random.number({
+			min: 1,
+			max: 25,
+		}),
+		job_id: faker.random.number({
+			min: 1,
+			max: 100,
+		}),
+	};
+}
 
 function accumulate(cb, iteration) {
 	if (iteration > 0) {
@@ -50,9 +63,11 @@ function accumulate(cb, iteration) {
 const list = accumulate(generateProfile, 25);
 const jobs = accumulate(generateJobs, 100);
 const companyList = accumulate(generateCompanies, 25);
+const jobSaves = accumulate(generateSaves, 100);
 
 module.exports = {
 	list,
 	jobs,
 	companyList,
+	jobSaves,
 };
