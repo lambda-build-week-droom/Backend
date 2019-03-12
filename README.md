@@ -32,7 +32,7 @@
 
 #### Jobs
 
-[Get All Jobs](#getAllJobs) | [Create Job](#createJob) | [Get Job by Id](#getJobById) | [Update Job](#updateJob)
+[Get All Jobs](#getAllJobs) | [Create Job](#createJob) | [Get Job by Id](#getJobById) | [Update Job](#updateJob) [Delete Job](#deleteJob)
 
 ## ENDPOINTS
 
@@ -581,11 +581,17 @@
 
     ### Body
 
-    ```
-    Can send any part of the body that needs updating:
+    | name            | type     | required | description |
+    | --------------- | -------- | -------- | ----------- |
+    | jobTitle        | String   | No       |             |
+    | jobPosition     | String   | No       |             |
+    | jobDescription  | String   | No       |             |
+    | jobRequirements | String   | No       |             |
+    | jobSalary       | Integer  | No       |             |
+    | jobTags         | String   | No       |             |
+    | jobOpenDate     | Integer  | No       |             |
+    | jobCloseDate    | Intteger | No       |             |
 
-    jobTitle, jobPosition, jobDescription, jobRequirements, jobSalary, jobTags, jobOpenDate, jobCloseDate
-    ```
 
     ```
        {
@@ -597,9 +603,25 @@
 
     > On success return `1`
 
-# <<<<<<< HEAD
+---
 
-> > > > > > > 90f0f5af1164e4a260f0fe08cf83ab4e766a71f7
+5. `Delete Job` <a name='deleteJob'></a>
+
+    _Method URL: /jobs/:id/delete_
+
+    _HTTP method: [DELETE]_
+
+    ### Headers
+
+    | name          | type   | required | description                          |
+    | ------------- | ------ | -------- | ------------------------------------ |
+    | Content-type  | String | Yes      | Must be application/json             |
+    | Authorization | String | Yes      | Token must be from a company account |
+
+
+    ### Response
+
+    > On success return status(204)
 
 ---
 
