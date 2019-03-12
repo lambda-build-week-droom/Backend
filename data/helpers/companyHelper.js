@@ -30,15 +30,8 @@ async function getCompanyById(id) {
 		.where('id', id)
 		.select('id', 'companyName', 'email', 'bio', 'address')
 		.first();
-	companyWithJobs = {
-		id: company.id,
-		companyName: company.companyName,
-		email: company.email,
-		bio: company.bio,
-		address: company.address,
-		companyJobs: jobs,
-	};
-	return companyWithJobs;
+	Object.assign(company, { comapnyJobs: jobs });
+	return company;
 }
 
 function updateCompany(user, updateInfo) {

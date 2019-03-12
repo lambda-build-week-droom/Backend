@@ -11,16 +11,17 @@ const router = express.Router();
 
 // Create Job
 router.post('/', restricted, async (req, res) => {
-	const company = await companyHelper.getCompanyById(req.body.company_id);
 	try {
-		if (company) {
-			console.log(company.id);
+		// console.log(req.body.company_id);
+		const company = await companyHelper.getCompanyInfo(req.decodedToken);
+		console.log('company', company);
+		if (company && req.body.company_id) {
 			const result = jobsHelper.createJob(req.body);
 			res.status(201).json(result);
-		} else {
-			res.status(400).json({ message: 'Invalid company id' });
 		}
-	} catch {}
+	} catch (error) {
+		res.status(500).json(error);
+	}
 });
 //Get All Jobs
 router.get('/', restricted, async (req, res) => {
@@ -30,6 +31,12 @@ router.get('/', restricted, async (req, res) => {
 	} catch {
 		res.status(500).json({ message: 'Internal server error' });
 	}
+});
+
+router.post('/:id/save', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await jobsHelper.saveJob(req.decodedToken.subject, id);
+	res.status(201).json(result);
 });
 
 //Get logged in user
@@ -53,10 +60,12 @@ router.put('/update/:id', restricted, async (req, res) => {
 	res.status(200).json(result); // returns a 1 if updated
 });
 
-//Delete User
-// router.delete('/delete', restricted, async (req, res) => {
-// 	const result = await userHelper.deleteUser(req.decodedToken);
-// 	res.status(204).json(result);
-// });
+// Delete Job
+router.delete('/:id/delete', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await jobsHelper.deleteJob(id);
+	console.log(result);
+	res.status(204).json(result);
+});
 
 module.exports = router;
