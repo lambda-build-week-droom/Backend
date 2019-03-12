@@ -5,7 +5,7 @@ const express = require('express');
 
 const userHelper = require('../helpers/userHelper');
 
-const { restricted } = require('../middleware/middleware');
+const { restricted, imageProcess } = require('../middleware/middleware');
 const router = express.Router();
 
 //Get All Users
@@ -32,7 +32,7 @@ router.get('/:id', restricted, async (req, res) => {
 });
 
 //Update User
-router.put('/update', restricted, async (req, res) => {
+router.put('/update', restricted, imageProcess, async (req, res) => {
 	console.log(req.decodedToken);
 	const updateInfo = req.body;
 	const result = await userHelper.updateUser(req.decodedToken, updateInfo);

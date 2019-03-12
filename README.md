@@ -272,11 +272,13 @@
 
     ### Body
 
-    ```
-    Can send any part of the body that needs updating:
-
-    firstName, lastName, occupation, experience, interests
-    ```
+    | name       | type   | required | description |
+    | ---------- | ------ | -------- | ----------- |
+    | firstName  | string | No       |             |
+    | lastName   | string | No       |             |
+    | occupation | string | No       |             |
+    | experience | string | No       |             |
+    | interests  | string | No       |             |
 
     ```
        {
@@ -295,7 +297,7 @@
 
 1. `Get All Companies` <a name='allCompanies'></a>
 
-   _Method URL: /companies_
+    _Method URL: /companies_
 
     _HTTP method: [GET]_
 
@@ -393,7 +395,7 @@
                 "jobDescription": "Description",
                 "jobRequirements": "Requirements",
                 "jobSalary": 100000,
-                "jobTags": "tech, janitor",
+                "jobTags": ["tech", "janitor"],
                 "jobOpenDate": "March 11th, 2019",
                 "jobCloseDate": "June 1st, 2019",
                 "company_id": 2
@@ -404,7 +406,7 @@
 
 ---
 
-4. `Update Company` <a name='updateCompany'></a>
+4.  `Update Company` <a name='updateCompany'></a>
 
     _Method URL: /companies/update_
 
@@ -418,6 +420,14 @@
     | Authorization | String | Yes      | Token must be from a company account |
 
     ### Body
+
+    | name        | type   | required | description |
+    | ----------- | ------ | -------- | ----------- |
+    | companyName | string | No       |             |
+    | email       | string | No       |             |
+    | bio         | string | No       |             |
+    | address     | string | No       |             |
+
 
     ```
     Can send any part of the body that needs updating:
@@ -504,19 +514,17 @@
 
     ### Body
 
-    ```
-        {
-            id: 13,
-            jobTitle: "Customer Research Apprentice",
-            jobPosition: "Executive",
-            jobDescription: "Lead",
-            jobRequirements: "Accounts",
-            jobSalary: 704,
-            jobTags: "voluptas",
-            jobOpenDate: "1552282766773.0",
-            jobCloseDate: "1579250581673.0"
-        }
-    ```
+    | name            | type     | required | description |
+    | --------------- | -------- | -------- | ----------- |
+    | jobTitle        | String   | No       |             |
+    | jobPosition     | String   | No       |             |
+    | jobDescription  | String   | No       |             |
+    | jobRequirements | String   | No       |             |
+    | jobSalary       | Integer  | No       |             |
+    | jobTags         | String   | No       |             |
+    | jobOpenDate     | Integer  | No       |             |
+    | jobCloseDate    | Intteger | No       |             |
+
 
     ### Response
 
@@ -589,6 +597,9 @@
 
     > On success return `1`
 
+# <<<<<<< HEAD
+
+> > > > > > > 90f0f5af1164e4a260f0fe08cf83ab4e766a71f7
 
 ---
 

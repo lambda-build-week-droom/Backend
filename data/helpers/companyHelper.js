@@ -22,6 +22,10 @@ function getCompanyInfo(user) {
 }
 async function getCompanyById(id) {
 	const jobs = await db('jobPosting').where('company_id', id);
+
+	jobs.forEach(job => {
+		job.jobTags = job.jobTags.split(' ');
+	});
 	const company = await db('companies')
 		.where('id', id)
 		.select('id', 'companyName', 'email', 'bio', 'address')
