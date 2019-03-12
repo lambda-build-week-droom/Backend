@@ -597,6 +597,10 @@
 
     > On success return `1`
 
+# <<<<<<< HEAD
+
+> > > > > > > 90f0f5af1164e4a260f0fe08cf83ab4e766a71f7
+
 ---
 
 <a name='axios_examples'></a>
