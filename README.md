@@ -213,15 +213,36 @@
     > On success return object
 
 ```
-    {
-        "id": 1,
-        "firstName": "Orlando",
-        "lastName": "Nitzsche",
-        "occupation": "Regional Functionality Strategist",
-        "experience": "experience",
-        "interests": "interests"
-    }
-
+ "id": 1,
+    "firstName": "Laurence",
+    "lastName": "Bechtelar",
+    "occupation": "Central Mobility Director",
+    "experience": "experience",
+    "interests": "interests",
+    "saved": [
+        {
+            "job_id": 47,
+            "jobTitle": "Internal Quality Agent",
+            "jobPosition": "Architect",
+            "jobDescription": "Regional",
+            "jobRequirements": "Brand",
+            "jobSalary": 903,
+            "jobTags": "dolore eos quia",
+            "jobOpenDate": "1552373894247.0",
+            "jobCloseDate": "1559589532036.0"
+        },
+        {
+            "job_id": 49,
+            "jobTitle": "Future Interactions Technician",
+            "jobPosition": "Analyst",
+            "jobDescription": "District",
+            "jobRequirements": "Data",
+            "jobSalary": 18,
+            "jobTags": "animi quia omnis",
+            "jobOpenDate": "1552355593356.0",
+            "jobCloseDate": "1570538807737.0"
+        }
+    ]
 ```
 
 ---
