@@ -20,8 +20,14 @@ router.get('/', restricted, async (req, res) => {
 
 //Get logged in user
 router.get('/info', restricted, async (req, res) => {
-	const result = await userHelper.getUserInfo(req.decodedToken);
-	res.status(200).json(result);
+	try {
+		const result = await userHelper.getUserInfo(req.decodedToken);
+		// const saves = await userHelper.getSaves(result.id);
+
+		res.status(200).json(result);
+	} catch (err) {
+		res.status(500).json('server error');
+	}
 });
 
 // Get User by ID

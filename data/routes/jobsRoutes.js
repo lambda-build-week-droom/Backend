@@ -11,16 +11,17 @@ const router = express.Router();
 
 // Create Job
 router.post('/', restricted, async (req, res) => {
-	const company = await companyHelper.getCompanyById(req.body.company_id);
 	try {
-		if (company) {
-			console.log(company.id);
+		console.log(req.body.company_id);
+		const company = await companyHelper.getCompanyInfo(req.decodedToken);
+
+		if (company && req.body.company_id) {
 			const result = jobsHelper.createJob(req.body);
 			res.status(201).json(result);
-		} else {
-			res.status(400).json({ message: 'Invalid company id' });
 		}
-	} catch {}
+	} catch (error) {
+		res.status(500).json(error);
+	}
 });
 //Get All Jobs
 router.get('/', restricted, async (req, res) => {

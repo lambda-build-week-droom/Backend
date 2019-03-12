@@ -3,8 +3,9 @@ const knexConfig = require('../../knexfile');
 const db = knex(knexConfig.development);
 
 module.exports = {
-	getUserInfo,
 	getAllUsers,
+	getSaves,
+	getUserInfo,
 	getUserById,
 	updateUser,
 	// deleteUser,
@@ -21,12 +22,29 @@ function getAllUsers() {
 	);
 }
 
-function getUserInfo(user) {
-	return db('users')
-		.where('email', user.email)
+function getSaves(id) {
+	return db('userJobSaves').where('user_id', id);
+}
+
+async function getUserInfo(user) {
+	const likes = await db('userJobSaves')
+		.join('jobPosting', 'userJobSaves.job_id', 'jobPosting.id')
+		.where('user_id', user.subject);
+	console.log(likes);
+	const userInfo = await db('users')
+		.where('id', user.subject)
 		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
 		.first();
+	Object.assign(userInfo, { saved: likes });
+	return userInfo;
 }
+
+// function getUserInfo(user) {
+// 	return db('users')
+// 		.where('email', user.email)
+// 		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
+// 		.first();
+// }
 function getUserById(id) {
 	return db('users')
 		.where('id', id)

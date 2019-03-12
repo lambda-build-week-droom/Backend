@@ -6,7 +6,7 @@ function generateProfile() {
 		firstName: faker.name.firstName(),
 		lastName: faker.name.lastName(),
 		email: faker.internet.email(),
-		password: bcrypt.hashSync(faker.internet.password(), 8),
+		password: bcrypt.hashSync('password', 8),
 		occupation: faker.name.jobTitle(),
 		experience: 'experience',
 		interests: 'interests',
@@ -33,7 +33,7 @@ function generateCompanies() {
 	return {
 		companyName: faker.company.companyName(),
 		email: faker.internet.email(),
-		password: faker.internet.password(),
+		password: bcrypt.hashSync('password', 8),
 		bio: faker.lorem.paragraph(),
 		address: faker.address.streetAddress(),
 	};

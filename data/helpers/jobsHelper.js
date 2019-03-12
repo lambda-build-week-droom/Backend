@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function createJob(jobPost) {
-	console.log('createJob');
+	console.log(jobPost);
 	db('jobPosting').insert(jobPost);
 	return 1;
 }
