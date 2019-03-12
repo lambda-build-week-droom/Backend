@@ -7,8 +7,9 @@ module.exports = {
 	getAllJobs,
 	getJobById,
 	updateJob,
-	saveJob,
 	deleteJob,
+	saveJob,
+	removeJob,
 };
 
 async function createJob(jobPost) {
@@ -59,4 +60,9 @@ async function deleteJob(id) {
 
 function saveJob(userId, jobId) {
 	return db('userJobSaves').insert({ user_id: userId, job_id: jobId });
+}
+function removeJob(userId, jobId) {
+	return db('userJobSaves')
+		.where({ user_id: userId, job_id: jobId })
+		.del();
 }
