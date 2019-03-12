@@ -22,6 +22,8 @@ function getAllUsers() {
 	);
 }
 
+
+
 function getSaves(id) {
 	return db('userJobSaves').where('user_id', id);
 }
@@ -29,7 +31,7 @@ function getSaves(id) {
 async function getUserInfo(user) {
 	const likes = await db('userJobSaves')
 		.join('jobPosting', 'userJobSaves.job_id', 'jobPosting.id')
-		.where('user_id', user.subject);
+		.where('user_id', user.subject).select('job_id','jobTitle','jobPosition', 'jobDescription', 'jobRequirements', 'jobSalary','jobTags','jobOpenDate','jobCloseDate');
 	console.log(likes);
 	const userInfo = await db('users')
 		.where('id', user.subject)

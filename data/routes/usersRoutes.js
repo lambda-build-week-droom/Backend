@@ -30,6 +30,7 @@ router.get('/info', restricted, async (req, res) => {
 	}
 });
 
+
 // Get User by ID
 router.get('/:id', restricted, async (req, res) => {
 	const { id } = req.params;

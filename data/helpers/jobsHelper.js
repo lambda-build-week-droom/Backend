@@ -7,13 +7,18 @@ module.exports = {
 	getAllJobs,
 	getJobById,
 	updateJob,
-	// deleteUser,
+	saveJob,
+	deleteJob,
 };
 
-function createJob(jobPost) {
-	console.log(jobPost);
-	db('jobPosting').insert(jobPost);
-	return 1;
+async function createJob(jobPost) {
+	try {
+		const result = await db('jobPosting').insert(jobPost);
+
+		return 1;
+	} catch (error) {
+		return error;
+	}
 }
 function getAllJobs() {
 	return db('jobPosting');
@@ -31,10 +36,27 @@ function updateJob(id, updateInfo) {
 		.update(updateInfo);
 }
 
-// function deleteUser(user) {
-// 	console.log('delete', user.email);
-// 	const userDelete = db('users')
-// 		.where('email', user.email)
-// 		.del();
-// 	return user.email;
-// }
+async function deleteJob(id) {
+	try {
+		const saves = await db('userJobSaves').where('job_id', id);
+		const job = await db('jobPosting').where('id', id);
+		if (saves.length > 0 || job.length > 0) {
+			const saves = await db('userJobSaves')
+				.where('job_id', id)
+				.del();
+			const deleteJob = await db('jobPosting')
+				.where('id', id)
+				.del();
+
+			return 1;
+		} else {
+			return 1;
+		}
+	} catch (error) {
+		return error;
+	}
+}
+
+function saveJob(userId, jobId) {
+	return db('userJobSaves').insert({ user_id: userId, job_id: jobId });
+}
