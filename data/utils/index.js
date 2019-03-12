@@ -50,6 +50,18 @@ function generateSaves() {
 		}),
 	};
 }
+function generateUserSaves() {
+	return {
+		company_id: faker.random.number({
+			min: 1,
+			max: 25,
+		}),
+		user_id: faker.random.number({
+			min: 1,
+			max: 25,
+		}),
+	};
+}
 
 function accumulate(cb, iteration) {
 	if (iteration > 0) {
@@ -64,10 +76,12 @@ const list = accumulate(generateProfile, 25);
 const jobs = accumulate(generateJobs, 100);
 const companyList = accumulate(generateCompanies, 25);
 const jobSaves = accumulate(generateSaves, 100);
+const userSaves = accumulate(generateUserSaves, 50);
 
 module.exports = {
 	list,
 	jobs,
 	companyList,
 	jobSaves,
+	userSaves,
 };

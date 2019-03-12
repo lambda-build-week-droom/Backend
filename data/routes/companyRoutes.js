@@ -39,7 +39,7 @@ router.put('/update', restricted, async (req, res) => {
 	res.status(200).json(result); // returns a 1 if updated
 });
 
-//Delete User
+//Delete Company
 // router.delete('/delete', restricted, async (req, res) => {
 // 	const result = await companyHelper.deleteCompany(req.decodedToken);
 // 	res.status(204).json(result);

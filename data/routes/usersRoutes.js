@@ -30,7 +30,6 @@ router.get('/info', restricted, async (req, res) => {
 	}
 });
 
-
 // Get User by ID
 router.get('/:id', restricted, async (req, res) => {
 	const { id } = req.params;
@@ -44,6 +43,17 @@ router.put('/update', restricted, imageProcess, async (req, res) => {
 	const updateInfo = req.body;
 	const result = await userHelper.updateUser(req.decodedToken, updateInfo);
 	res.status(200).json(result); // returns a 1 if updated
+});
+
+router.post('/:id/save', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await userHelper.saveUser(req.decodedToken.subject, id);
+	res.status(201).json(result);
+});
+router.post('/:id/remove', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await userHelper.removeUser(req.decodedToken.subject, id);
+	res.status(201).json(result);
 });
 
 //Delete User

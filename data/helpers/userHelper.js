@@ -18,11 +18,11 @@ function getAllUsers() {
 		'lastName',
 		'occupation',
 		'experience',
-		'interests'
+		'interests',
+		'saveUser',
+		'removeUser'
 	);
 }
-
-
 
 function getSaves(id) {
 	return db('userJobSaves').where('user_id', id);
@@ -31,7 +31,18 @@ function getSaves(id) {
 async function getUserInfo(user) {
 	const likes = await db('userJobSaves')
 		.join('jobPosting', 'userJobSaves.job_id', 'jobPosting.id')
-		.where('user_id', user.subject).select('job_id','jobTitle','jobPosition', 'jobDescription', 'jobRequirements', 'jobSalary','jobTags','jobOpenDate','jobCloseDate');
+		.where('user_id', user.subject)
+		.select(
+			'job_id',
+			'jobTitle',
+			'jobPosition',
+			'jobDescription',
+			'jobRequirements',
+			'jobSalary',
+			'jobTags',
+			'jobOpenDate',
+			'jobCloseDate'
+		);
 	console.log(likes);
 	const userInfo = await db('users')
 		.where('id', user.subject)
@@ -67,3 +78,12 @@ function updateUser(user, updateInfo) {
 // 		.del();
 // 	return user.email;
 // }
+
+function saveUser(companyId, userId) {
+	return db('companyUserSaves').insert({ company_id: companyId, user_id: userId });
+}
+function removeUser(companyId, userId) {
+	return db('companyUserSaves')
+		.where({ company_id: companyId, user_id: userId })
+		.del();
+}
