@@ -11,15 +11,6 @@ const router = express.Router();
 
 // Create Job
 router.post('/', restricted, async (req, res) => {
-	// jobTitle
-	// jobPosition
-	// jobDescription
-	// jobRequirements
-	// jobSalary
-	// jobTags
-	// jobOpenDate
-	// jobCloseDate
-	// company_id
 	const company = await companyHelper.getCompanyById(req.body.company_id);
 	try {
 		if (company) {

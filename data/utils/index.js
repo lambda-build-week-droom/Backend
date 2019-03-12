@@ -19,7 +19,7 @@ function generateJobs() {
 		jobDescription: faker.name.jobDescriptor(),
 		jobRequirements: faker.name.jobArea(),
 		jobSalary: faker.commerce.price(),
-		jobTags: faker.lorem.word(),
+		jobTags: faker.lorem.words(),
 		jobOpenDate: faker.date.recent(),
 		jobCloseDate: faker.date.future(),
 		company_id: faker.random.number({
