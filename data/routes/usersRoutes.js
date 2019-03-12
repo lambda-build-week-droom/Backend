@@ -62,4 +62,10 @@ router.post('/:id/remove', restricted, async (req, res) => {
 // 	res.status(204).json(result);
 // });
 
+router.get('/match', restricted, async (req, res) => {
+	// const result = await userHelper.match(req.decodedToken.subject);
+	let test = req.decodedToken;
+	res.status(200).json({ test });
+});
+
 module.exports = router;

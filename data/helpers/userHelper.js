@@ -8,6 +8,9 @@ module.exports = {
 	getUserInfo,
 	getUserById,
 	updateUser,
+	saveUser,
+	removeUser,
+	match,
 	// deleteUser,
 };
 
@@ -18,9 +21,7 @@ function getAllUsers() {
 		'lastName',
 		'occupation',
 		'experience',
-		'interests',
-		'saveUser',
-		'removeUser'
+		'interests'
 	);
 }
 
@@ -86,4 +87,12 @@ function removeUser(companyId, userId) {
 	return db('companyUserSaves')
 		.where({ company_id: companyId, user_id: userId })
 		.del();
+}
+
+async function match(userId) {
+	console.log(userId);
+	const result = await db('companyUserSaves').where('user_id', userId);
+
+	console.log(result);
+	return result;
 }
