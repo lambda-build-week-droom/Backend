@@ -29,6 +29,14 @@ router.get('/info', restricted, async (req, res) => {
 		res.status(500).json('server error');
 	}
 });
+router.get('/matched', restricted, async (req, res) => {
+	try {
+		const result = await userHelper.match(req.decodedToken.subject);
+		res.status(200).json(result);
+	} catch {
+		res.status(500).json({ message: 'Internal server error' });
+	}
+});
 
 // Get User by ID
 router.get('/:id', restricted, async (req, res) => {
@@ -46,9 +54,13 @@ router.put('/update', restricted, imageProcess, async (req, res) => {
 });
 
 router.post('/:id/save', restricted, async (req, res) => {
-	const { id } = req.params;
-	const result = await userHelper.saveUser(req.decodedToken.subject, id);
-	res.status(201).json(result);
+	try {
+		const { id } = req.params;
+		const result = await userHelper.saveUser(req.decodedToken.subject, id);
+		res.status(201).json(result);
+	} catch (error) {
+		res.status(500).json(error);
+	}
 });
 router.post('/:id/remove', restricted, async (req, res) => {
 	const { id } = req.params;
@@ -61,11 +73,5 @@ router.post('/:id/remove', restricted, async (req, res) => {
 // 	const result = await userHelper.deleteUser(req.decodedToken);
 // 	res.status(204).json(result);
 // });
-
-router.get('/match', restricted, async (req, res) => {
-	// const result = await userHelper.match(req.decodedToken.subject);
-	let test = req.decodedToken;
-	res.status(200).json({ test });
-});
 
 module.exports = router;

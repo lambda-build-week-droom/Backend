@@ -58,11 +58,18 @@ async function deleteJob(id) {
 	}
 }
 
-function saveJob(userId, jobId) {
-	return db('userJobSaves').insert({ user_id: userId, job_id: jobId });
+async function saveJob(userId, jobId) {
+	const job = await db('jobPosting').where('id', id);
+	return db('userJobSaves').insert({
+		user_id: userId,
+		job_id: jobId,
+		company_id: job.company_id,
+	});
 }
-function removeJob(userId, jobId) {
+async function removeJob(userId, jobId) {
+	const job = await db('jobPosting').where('id', id);
+
 	return db('userJobSaves')
-		.where({ user_id: userId, job_id: jobId })
+		.where({ user_id: userId, job_id: jobId, company_id: job.company_id })
 		.del();
 }

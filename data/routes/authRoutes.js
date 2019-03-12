@@ -65,8 +65,6 @@ router.post('/login', async (req, res) => {
 		.where('email', email)
 		.first();
 	if (user && bcrypt.compareSync(password, user.password)) {
-		console.log('user');
-
 		try {
 			const token = generateToken(user);
 			const userInfo = {
@@ -84,7 +82,6 @@ router.post('/login', async (req, res) => {
 			res.status(404).json({ message: 'unable to find that user' });
 		}
 	} else if (company && bcrypt.compareSync(password, company.password)) {
-		console.log('company');
 		try {
 			const token = generateToken(company);
 			const companyInfo = {

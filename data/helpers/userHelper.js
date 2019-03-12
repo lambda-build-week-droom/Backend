@@ -44,7 +44,6 @@ async function getUserInfo(user) {
 			'jobOpenDate',
 			'jobCloseDate'
 		);
-	console.log(likes);
 	const userInfo = await db('users')
 		.where('id', user.subject)
 		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
@@ -90,9 +89,15 @@ function removeUser(companyId, userId) {
 }
 
 async function match(userId) {
-	console.log(userId);
-	const result = await db('companyUserSaves').where('user_id', userId);
-
-	console.log(result);
-	return result;
+	try {
+		const userMatches = db('userJobSaves').join(
+			'jobPostings',
+			'userJobSaves.job_id',
+			'jobPostings.id'
+		);
+		// .where('user_id', userId);
+		return result;
+	} catch (error) {
+		return error;
+	}
 }
