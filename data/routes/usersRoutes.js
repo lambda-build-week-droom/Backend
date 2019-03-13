@@ -39,13 +39,13 @@ router.delete('/delete', restricted, async (req, res) => {
 	try {
 		const user = await userHelper.getUserById(req.decodedToken.subject);
 		if (user) {
-			const result = await userHelper.deleteUser(req.decodedToken);
-			res.status(204);
+			const result = await userHelper.deleteUser(req.decodedToken.subject);
+			res.status(204).json(result);
 		} else {
 			res.status(404).json({ message: 'Unable to find that user' });
 		}
 	} catch (error) {
-		res.status(500).json(error);
+		res.status(500).json({ message: 'Internal server error' });
 	}
 });
 

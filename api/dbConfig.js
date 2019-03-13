@@ -29,7 +29,7 @@ module.exports = knex(config[dbEnv]);
 // [x] [GET] https://droom-backend.herokuapp.com/companies/info
 // [x] [GET] https://droom-backend.herokuapp.com/companies/:id
 // [x] [PUT] https://droom-backend.herokuapp.com/companies/update
-// [] [DELETE] https://droom-backend.herokuapp.com/companies/delete
+// [x] [DELETE] https://droom-backend.herokuapp.com/companies/delete
 
 //Jobs
 

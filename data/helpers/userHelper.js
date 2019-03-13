@@ -100,12 +100,12 @@ function updateUser(user, updateInfo) {
 async function deleteUser(user) {
 	try {
 		const result = await db('userJobSaves')
-			.where('user_id', user.subject)
+			.where('user_id', user)
 			.del();
 		const userDelete = await db('users')
-			.where('email', user.email)
+			.where('id', user)
 			.del();
-		return 1;
+		return { message: 'Success' };
 	} catch (error) {
 		return error;
 	}
