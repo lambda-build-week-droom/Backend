@@ -1,4 +1,7 @@
 const express = require('express');
+const knex = require('knex');
+const knexConfig = require('../../knexfile');
+const db = knex(knexConfig.development);
 
 const userHelper = require('../helpers/userHelper');
 
@@ -36,11 +39,15 @@ router.put('/update', restricted, async (req, res) => {
 
 // Delete User - response 204
 router.delete('/delete', restricted, async (req, res) => {
+	console.log(req.decodedToken.subject);
+	const user = await db('users')
+		.where('id', req.decodedToken.subject)
+		.first();
+	console.log(user);
 	try {
-		const user = await userHelper.getUserById(req.decodedToken.subject);
 		if (user) {
 			const result = await userHelper.deleteUser(req.decodedToken.subject);
-			res.status(204).json(result);
+			res.status(204).json({ message: 'Success' });
 		} else {
 			res.status(404).json({ message: 'Unable to find that user' });
 		}
