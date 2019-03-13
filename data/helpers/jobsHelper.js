@@ -25,10 +25,21 @@ function getAllJobs() {
 	return db('jobPosting');
 }
 
-function getJobById(id) {
-	return db('jobPosting')
-		.where('id', id)
-		.first();
+async function getJobById(id) {
+	try {
+		const job = await db('jobPosting')
+			.where('id', id)
+			.first();
+		if (job) {
+			return job;
+		} else {
+			return res.status(404).json({ message: 'Unable to find job with that ID' });
+		}
+
+		return job;
+	} catch (error) {
+		return error;
+	}
 }
 
 function updateJob(id, updateInfo) {
