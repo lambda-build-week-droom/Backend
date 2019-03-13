@@ -14,30 +14,30 @@ module.exports = knex(config[dbEnv]);
 
 // Users
 
-// [GET] https://droom-backend.herokuapp.com/users/
-// [GET] https://droom-backend.herokuapp.com/users/info
-// [PUT] https://droom-backend.herokuapp.com/users/update
-// [DELETE] https://droom-backend.herokuapp.com/users/delete
-// [GET] https://droom-backend.herokuapp.com/users/matched
-// [GET] https://droom-backend.herokuapp.com/users/:id
-// [POST] https://droom-backend.herokuapp.com/users/:id/save
-// [POST] https://droom-backend.herokuapp.com/users/:id/remove
+// [x] [GET] https://droom-backend.herokuapp.com/users/
+// [x] [GET] https://droom-backend.herokuapp.com/users/info
+// [x] [PUT] https://droom-backend.herokuapp.com/users/update
+// [] [DELETE] https://droom-backend.herokuapp.com/users/delete
+// [] [GET] https://droom-backend.herokuapp.com/users/matched
+// [x] [GET] https://droom-backend.herokuapp.com/users/:id
+// [] [POST] https://droom-backend.herokuapp.com/users/:id/save
+// [] [POST] https://droom-backend.herokuapp.com/users/:id/remove
 
 // Companies
 
-// [GET] https://droom-backend.herokuapp.com/companies/
-// [GET] https://droom-backend.herokuapp.com/companies/info
-// [GET] https://droom-backend.herokuapp.com/companies/:id
-// [PUT] https://droom-backend.herokuapp.com/companies/update
-// [DELETE] https://droom-backend.herokuapp.com/companies/delete
+// [x] [GET] https://droom-backend.herokuapp.com/companies/
+// [x] [GET] https://droom-backend.herokuapp.com/companies/info
+// [x] [GET] https://droom-backend.herokuapp.com/companies/:id
+// [x] [PUT] https://droom-backend.herokuapp.com/companies/update
+// [] [DELETE] https://droom-backend.herokuapp.com/companies/delete
 
 //Jobs
 
-// [GET] https://droom-backend.herokuapp.com/jobs/
-// [POST] https://droom-backend.herokuapp.com/jobs/
-// [GET] https://droom-backend.herokuapp.com/jobs/info
-// [GET] https://droom-backend.herokuapp.com/jobs/:id
-// [PUT] https://droom-backend.herokuapp.com/jobs/:id/update
-// [DELETE] https://droom-backend.herokuapp.com/jobs/:id/delete
-// [POST] https://droom-backend.herokuapp.com/jobs/:id/save
-// [POST] https://droom-backend.herokuapp.com/jobs/:id/remove
+// [x] [GET] https://droom-backend.herokuapp.com/jobs/
+// [] [POST] https://droom-backend.herokuapp.com/jobs/
+// [] [GET] https://droom-backend.herokuapp.com/jobs/info
+// [] [GET] https://droom-backend.herokuapp.com/jobs/:id
+// [] [PUT] https://droom-backend.herokuapp.com/jobs/:id/update
+// [] [DELETE] https://droom-backend.herokuapp.com/jobs/:id/delete
+// [] [POST] https://droom-backend.herokuapp.com/jobs/:id/save
+// [] [POST] https://droom-backend.herokuapp.com/jobs/:id/remove

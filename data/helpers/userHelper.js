@@ -87,7 +87,7 @@ async function getUserById(id) {
 			res.status(404).json({ message: 'Unable to find a user by tat ID' });
 		}
 	} catch (error) {
-		res.status(500);
+		res.status(500).send('Internal server error');
 	}
 }
 
@@ -112,7 +112,7 @@ async function deleteUser(user) {
 }
 
 function saveUser(companyId, userId) {
-	return db('companyUserSaves').insert({ company_id: companyId, user_id: userId });
+	return db('companyUserSaves').insert({ company_id: companyId, user_id: userId }, 'id');
 }
 
 function removeUser(companyId, userId) {

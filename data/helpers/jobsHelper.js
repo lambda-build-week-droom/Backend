@@ -14,9 +14,9 @@ module.exports = {
 
 async function createJob(jobPost) {
 	try {
-		const result = await db('jobPosting').insert(jobPost);
+		const result = await db('jobPosting').insert(jobPost, 'id');
 
-		return 1;
+		return result;
 	} catch (error) {
 		return error;
 	}
@@ -63,11 +63,14 @@ async function saveJob(userId, jobId) {
 		.where('id', jobId)
 		.first();
 	console.log('job', job);
-	return db('userJobSaves').insert({
-		user_id: userId,
-		job_id: jobId,
-		company_id: job.company_id,
-	});
+	return db('userJobSaves').insert(
+		{
+			user_id: userId,
+			job_id: jobId,
+			company_id: job.company_id,
+		},
+		'id'
+	);
 }
 async function removeJob(userId, jobId) {
 	try {
