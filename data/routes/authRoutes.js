@@ -75,6 +75,7 @@ router.post('/login', async (req, res) => {
 				occupation: user.occupation,
 				experience: user.experience,
 				interests: user.interests,
+				userImg: user.userImg,
 			};
 
 			res.status(200).json({ token, userInfo });
