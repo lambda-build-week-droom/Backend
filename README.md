@@ -49,6 +49,24 @@ Jobs
     [POST] https://droom-backend.herokuapp.com/jobs/:id/remove
 ```
 
+User Login
+
+```
+{
+    "email":"user@user.com",
+    "password":"password"
+}
+```
+
+User Login
+
+```
+{
+    "email":"company@company.com",
+    "password":"password"
+}
+```
+
 [Axios Example](#axios_example)
 
 ## NAVIGATION
