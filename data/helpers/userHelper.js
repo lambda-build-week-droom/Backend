@@ -67,11 +67,28 @@ async function getUserInfo(user) {
 	}
 }
 
-function getUserById(id) {
-	return db('users')
-		.where('id', id)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests', 'userImg')
-		.first();
+async function getUserById(id) {
+	try {
+		const user = db('users')
+			.where('id', id)
+			.select(
+				'id',
+				'firstName',
+				'lastName',
+				'occupation',
+				'experience',
+				'interests',
+				'userImg'
+			)
+			.first();
+		if (user) {
+			res.status(200).json(user);
+		} else {
+			res.status(404).json({ message: 'Unable to find a user by tat ID' });
+		}
+	} catch (error) {
+		res.status(500);
+	}
 }
 
 function updateUser(user, updateInfo) {
