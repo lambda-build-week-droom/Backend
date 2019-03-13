@@ -1,7 +1,4 @@
 const express = require('express');
-// const knex = require('knex');
-// const knexConfig = require('../../knexfile');
-// const db = knex(knexConfig.development);
 
 const jobsHelper = require('../helpers/jobsHelper');
 const companyHelper = require('../helpers/companyHelper');
@@ -23,6 +20,7 @@ router.post('/', restricted, async (req, res) => {
 		res.status(500).json(error);
 	}
 });
+
 //Get All Jobs
 router.get('/', restricted, async (req, res) => {
 	try {
@@ -33,11 +31,14 @@ router.get('/', restricted, async (req, res) => {
 	}
 });
 
+// Save job to a user profile
 router.post('/:id/save', restricted, async (req, res) => {
 	const { id } = req.params;
 	const result = await jobsHelper.saveJob(req.decodedToken.subject, id);
 	res.status(201).json(result);
 });
+
+// Remove job from a profile
 router.post('/:id/remove', restricted, async (req, res) => {
 	const { id } = req.params;
 	const result = await jobsHelper.removeJob(req.decodedToken.subject, id);

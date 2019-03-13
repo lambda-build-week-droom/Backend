@@ -1,7 +1,4 @@
 const express = require('express');
-// const knex = require('knex');
-// const knexConfig = require('../../knexfile');
-// const db = knex(knexConfig.development);
 
 const companyHelper = require('../helpers/companyHelper');
 
@@ -40,9 +37,18 @@ router.put('/update', restricted, async (req, res) => {
 });
 
 //Delete Company
-// router.delete('/delete', restricted, async (req, res) => {
-// 	const result = await companyHelper.deleteCompany(req.decodedToken);
-// 	res.status(204).json(result);
-// });
+router.delete('/delete', restricted, async (req, res) => {
+	try {
+		const company = await companyHelper.getCompanyById(req.decodedToken.subject);
+		if (company) {
+			const result = await companyHelper.deleteCompany(req.decodedToken.subject);
+			res.status(204).json({ message: 'Success' });
+		} else {
+			res.status(404).json({ message: 'Unable to find that company' });
+		}
+	} catch (error) {
+		res.status(500);
+	}
+});
 
 module.exports = router;

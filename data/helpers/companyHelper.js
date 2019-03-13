@@ -7,7 +7,7 @@ module.exports = {
 	getCompanyInfo,
 	getCompanyById,
 	updateCompany,
-	// deleteCompany,
+	deleteCompany,
 };
 
 function getAllCompanies() {
@@ -30,13 +30,6 @@ async function getCompanyInfo(user) {
 	return company;
 }
 
-// function getCompanyInfo(user) {
-// 	return db('companies')
-// 		.where('email', user.email)
-// 		.select('id', 'companyName', 'email', 'bio', 'address')
-// 		.first();
-// }
-
 async function getCompanyById(id) {
 	const jobs = await db('jobPosting').where('company_id', id);
 
@@ -57,10 +50,16 @@ function updateCompany(user, updateInfo) {
 		.update(updateInfo);
 }
 
-// function deleteCompany(user) {
-// 	console.log('delete', user.email);
-// 	const userDelete = db('companies')
-// 		.where('email', user.email)
-// 		.del();
-// 	return user.email;
-// }
+async function deleteCompany(id) {
+	try {
+		await db('companyUserSaves')
+			.where('company_id', id)
+			.del();
+		await db('companies')
+			.where('id', id)
+			.del();
+		return;
+	} catch (error) {
+		return error;
+	}
+}
