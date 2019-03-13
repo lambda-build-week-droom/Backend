@@ -21,13 +21,6 @@ router.get('/info', restricted, async (req, res) => {
 	res.status(200).json(result);
 });
 
-// Get Company by ID
-router.get('/:id', restricted, async (req, res) => {
-	const { id } = req.params;
-	const result = await companyHelper.getCompanyById(id);
-	res.status(200).json(result);
-});
-
 //Update Company
 router.put('/update', restricted, async (req, res) => {
 	console.log(req.decodedToken);
@@ -49,6 +42,13 @@ router.delete('/delete', restricted, async (req, res) => {
 	} catch (error) {
 		res.status(500);
 	}
+});
+
+// Get Company by ID
+router.get('/:id', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await companyHelper.getCompanyById(id);
+	res.status(200).json(result);
 });
 
 module.exports = router;

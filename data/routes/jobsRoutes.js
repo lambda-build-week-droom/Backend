@@ -31,35 +31,14 @@ router.get('/', restricted, async (req, res) => {
 	}
 });
 
-// Save job to a user profile
-router.post('/:id/save', restricted, async (req, res) => {
-	const { id } = req.params;
-	const result = await jobsHelper.saveJob(req.decodedToken.subject, id);
-	res.status(201).json(result);
-});
-
-// Remove job from a profile
-router.post('/:id/remove', restricted, async (req, res) => {
-	const { id } = req.params;
-	const result = await jobsHelper.removeJob(req.decodedToken.subject, id);
-	res.status(201).json(result);
-});
-
 //Get logged in user
 router.get('/info', restricted, async (req, res) => {
 	const result = await userHelper.getUserInfo(req.decodedToken);
 	res.status(200).json(result);
 });
 
-// Get Job by ID
-router.get('/:id', restricted, async (req, res) => {
-	const { id } = req.params;
-	const result = await jobsHelper.getJobById(id);
-	res.status(200).json(result);
-});
-
 // Update Job
-router.put('/update/:id', restricted, async (req, res) => {
+router.put('/:id/update', restricted, async (req, res) => {
 	const updateInfo = req.body;
 	const { id } = req.params;
 	const result = await jobsHelper.updateJob(id, updateInfo);
@@ -72,6 +51,27 @@ router.delete('/:id/delete', restricted, async (req, res) => {
 	const result = await jobsHelper.deleteJob(id);
 	console.log(result);
 	res.status(204).json(result);
+});
+
+// Get Job by ID
+router.get('/:id', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await jobsHelper.getJobById(id);
+	res.status(200).json(result);
+});
+
+// Save job to a user profile
+router.post('/:id/save', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await jobsHelper.saveJob(req.decodedToken.subject, id);
+	res.status(201).json(result);
+});
+
+// Remove job from a profile
+router.post('/:id/remove', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await jobsHelper.removeJob(req.decodedToken.subject, id);
+	res.status(201).json(result);
 });
 
 module.exports = router;

@@ -30,40 +30,11 @@ router.get('/info', restricted, async (req, res) => {
 	}
 });
 
-// Get User by ID - response 200
-router.get('/:id', restricted, async (req, res) => {
-	const { id } = req.params;
-	const result = await userHelper.getUserById(id);
-	res.status(200).json(result);
-});
-
 //Update User - response 202 - returns a 1 if updated
 router.put('/update', restricted, imageProcess, async (req, res) => {
 	const updateInfo = req.body;
 	const result = await userHelper.updateUser(req.decodedToken, updateInfo);
 	res.status(202).json(result);
-});
-
-// Save job to user profile - response 201
-router.post('/:id/save', restricted, async (req, res) => {
-	try {
-		const { id } = req.params;
-		const result = await userHelper.saveUser(req.decodedToken.subject, id);
-		res.status(201).json(result);
-	} catch (error) {
-		res.status(500).json(error);
-	}
-});
-
-// Remove saved job from profile - response 204
-router.post('/:id/remove', restricted, async (req, res) => {
-	try {
-		const { id } = req.params;
-		const result = await userHelper.removeUser(req.decodedToken.subject, id);
-		res.status(204).json(result);
-	} catch (error) {
-		res.status(500).json(error);
-	}
 });
 
 // Delete User - response 204
@@ -90,5 +61,36 @@ router.get('/matched', restricted, async (req, res) => {
 		res.status(500).json({ message: 'Internal server error' });
 	}
 });
+
+// Get User by ID - response 200
+router.get('/:id', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await userHelper.getUserById(id);
+	res.status(200).json(result);
+});
+
+// Save job to user profile - response 201
+router.post('/:id/save', restricted, async (req, res) => {
+	try {
+		const { id } = req.params;
+		const result = await userHelper.saveUser(req.decodedToken.subject, id);
+		res.status(201).json(result);
+	} catch (error) {
+		res.status(500).json(error);
+	}
+});
+
+// Remove saved job from profile - response 204
+router.post('/:id/remove', restricted, async (req, res) => {
+	try {
+		const { id } = req.params;
+		const result = await userHelper.removeUser(req.decodedToken.subject, id);
+		res.status(204).json(result);
+	} catch (error) {
+		res.status(500).json(error);
+	}
+});
+
+
 
 module.exports = router;
