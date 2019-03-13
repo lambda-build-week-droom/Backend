@@ -88,15 +88,31 @@ function removeUser(companyId, userId) {
 		.del();
 }
 
+// select u.user_id,c.user_id,u.company_id,c.company_id, com.companyName, com.id, u.job_id
+// from userJobSaves u
+//  left join companyUserSaves c
+//      on u.company_id = c.company_id
+//      left join companies com
+//          on c.company_id = com.id
+//  where u.user_id = c.user_id
+
 async function match(userId) {
+	console.log(userId);
 	try {
-		const userMatches = db('userJobSaves').join(
-			'jobPostings',
-			'userJobSaves.job_id',
-			'jobPostings.id'
-		);
-		// .where('user_id', userId);
-		return result;
+		const userMatches = db('userJobSaves')
+			.select(
+				'userJobSaves.user_id',
+				'userJobSaves.company_id',
+				'companies.companyName',
+				'userJobSaves.job_id'
+			)
+			.leftJoin('companyUserSaves', 'userJobSaves.company_id', companyUserSaves.company_id)
+			.leftJoin('companies', 'companyUserSaves.company_id', 'companies.id')
+			.where('userJobSaves.user_id', 'companyUserSaves.user_id');
+
+		console.log(userMatches);
+
+		return userMatches;
 	} catch (error) {
 		return error;
 	}

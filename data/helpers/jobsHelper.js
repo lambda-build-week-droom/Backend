@@ -59,7 +59,10 @@ async function deleteJob(id) {
 }
 
 async function saveJob(userId, jobId) {
-	const job = await db('jobPosting').where('id', id);
+	const job = await db('jobPosting')
+		.where('id', jobId)
+		.first();
+	console.log('job', job);
 	return db('userJobSaves').insert({
 		user_id: userId,
 		job_id: jobId,

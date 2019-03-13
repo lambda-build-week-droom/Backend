@@ -29,6 +29,7 @@ router.get('/info', restricted, async (req, res) => {
 		res.status(500).json('server error');
 	}
 });
+
 router.get('/matched', restricted, async (req, res) => {
 	try {
 		const result = await userHelper.match(req.decodedToken.subject);
