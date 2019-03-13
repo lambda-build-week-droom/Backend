@@ -31,27 +31,40 @@ function getSaves(id) {
 }
 
 async function getUserInfo(user) {
-	const likes = await db('userJobSaves')
-		.join('jobPosting', 'userJobSaves.job_id', 'jobPosting.id')
-		.where('user_id', user.subject)
-		.select(
-			'job_id',
-			'jobTitle',
-			'jobPosition',
-			'jobDescription',
-			'jobRequirements',
-			'jobSalary',
-			'jobTags',
-			'jobOpenDate',
-			'jobCloseDate',
-			'jobImg'
-		);
-	const userInfo = await db('users')
-		.where('id', user.subject)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests', 'userImg')
-		.first();
-	Object.assign(userInfo, { saved: likes });
-	return userInfo;
+	try {
+		const likes = await db('userJobSaves')
+			.join('jobPosting', 'userJobSaves.job_id', 'jobPosting.id')
+			.where('user_id', user.subject)
+			.select(
+				'job_id',
+				'jobTitle',
+				'jobPosition',
+				'jobDescription',
+				'jobRequirements',
+				'jobSalary',
+				'jobTags',
+				'jobOpenDate',
+				'jobCloseDate',
+				'jobImg'
+			);
+		const userInfo = await db('users')
+			.where('id', user.subject)
+			.select(
+				'id',
+				'firstName',
+				'lastName',
+				'email',
+				'occupation',
+				'experience',
+				'interests',
+				'userImg'
+			)
+			.first();
+		Object.assign(userInfo, { saved: likes });
+		return userInfo;
+	} catch (error) {
+		return error;
+	}
 }
 
 function getUserById(id) {
