@@ -1,6 +1,5 @@
 const express = require('express');
 
-
 const userHelper = require('../helpers/userHelper');
 
 const { restricted, imageProcess } = require('../middleware/middleware');
@@ -88,7 +87,5 @@ router.post('/:id/remove', restricted, async (req, res) => {
 		res.status(500).json(error);
 	}
 });
-
-
 
 module.exports = router;

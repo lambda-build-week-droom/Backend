@@ -99,21 +99,30 @@ function removeUser(companyId, userId) {
 //          on c.company_id = com.id
 //  where u.user_id = c.user_id
 
-async function match(userId) {
-	// console.log(userId);
-	try {
-		const userMatches = db('userJobSaves')
-			.select(
-				'userJobSaves.user_id',
-				'userJobSaves.company_id',
-				'companies.companyName',
-				'userJobSaves.job_id'
-			)
-			.leftJoin('companyUserSaves', 'userJobSaves.company_id', companyUserSaves.company_id)
-			.leftJoin('companies', 'companyUserSaves.company_id', 'companies.id')
-			.where('userJobSaves.user_id', 'companyUserSaves.user_id');
+// select userJobSaves.user_id, userJobSaves.company_id, userJobSaves.job_id
+// from userJobSaves
+//   left join companyUserSaves
+//       on userJobSaves.company_id = companyUserSaves.company_id
+//       where userJobSaves.user_id = companyUserSaves.user_id
 
-		// console.log(userMatches);
+async function match(id) {
+	try {
+		// const userMatches = await db('userJobSaves')
+		// 	.leftJoin('companyUserSaves', 'userJobSaves.company_id', 'companyUserSaves.company_id')
+		// 	.where('userJobSaves.user_id', 'companyUserSaves.user_id')
+		// 	.select('userJobSaves.user_id', 'userJobSaves.company_id', 'userJobSaves.job_id');
+
+		const userMatches = await db('userJobSaves')
+			.join('companyUserSaves', 'userJobSaves.company_id', 'companyUserSaves.company_id')
+			.where('userJobSaves.user_id', id)
+			.where('companyUserSaves.user_id', id)
+			.select(
+				'userJobSaves.user_id as UserId',
+				// 'companyUserSaves.user_id as 2UserId',
+				'userJobSaves.company_id as companyId',
+				'userJobSaves.job_id as jobId'
+			);
+		console.log('match', userMatches);
 
 		return userMatches;
 	} catch (error) {
