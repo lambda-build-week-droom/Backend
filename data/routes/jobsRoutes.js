@@ -68,7 +68,7 @@ router.post('/:id/save', restricted, async (req, res) => {
 });
 
 // Remove job from a profile
-router.post('/:id/remove', restricted, async (req, res) => {
+router.delete('/:id/remove', restricted, async (req, res) => {
 	const { id } = req.params;
 	const result = await jobsHelper.removeJob(req.decodedToken.subject, id);
 	res.status(201).json(result);
