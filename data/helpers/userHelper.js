@@ -21,7 +21,8 @@ function getAllUsers() {
 		'lastName',
 		'occupation',
 		'experience',
-		'interests'
+		'interests',
+		'userImg'
 	);
 }
 
@@ -42,11 +43,12 @@ async function getUserInfo(user) {
 			'jobSalary',
 			'jobTags',
 			'jobOpenDate',
-			'jobCloseDate'
+			'jobCloseDate',
+			'jobImg'
 		);
 	const userInfo = await db('users')
 		.where('id', user.subject)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
+		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests', 'userImg')
 		.first();
 	Object.assign(userInfo, { saved: likes });
 	return userInfo;
@@ -61,7 +63,7 @@ async function getUserInfo(user) {
 function getUserById(id) {
 	return db('users')
 		.where('id', id)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
+		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests', 'userImg')
 		.first();
 }
 
