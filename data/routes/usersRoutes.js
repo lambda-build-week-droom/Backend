@@ -30,6 +30,14 @@ router.get('/info', restricted, async (req, res) => {
 	}
 });
 
+router.get('/matched', restricted, async (req, res) => {
+	try {
+		const result = await userHelper.match(req.decodedToken.subject);
+		res.status(200).json(result);
+	} catch {
+		res.status(500).json({ message: 'Internal server error' });
+	}
+});
 
 // Get User by ID
 router.get('/:id', restricted, async (req, res) => {
@@ -44,6 +52,21 @@ router.put('/update', restricted, imageProcess, async (req, res) => {
 	const updateInfo = req.body;
 	const result = await userHelper.updateUser(req.decodedToken, updateInfo);
 	res.status(200).json(result); // returns a 1 if updated
+});
+
+router.post('/:id/save', restricted, async (req, res) => {
+	try {
+		const { id } = req.params;
+		const result = await userHelper.saveUser(req.decodedToken.subject, id);
+		res.status(201).json(result);
+	} catch (error) {
+		res.status(500).json(error);
+	}
+});
+router.post('/:id/remove', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await userHelper.removeUser(req.decodedToken.subject, id);
+	res.status(201).json(result);
 });
 
 //Delete User

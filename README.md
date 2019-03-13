@@ -32,7 +32,7 @@
 
 #### Jobs
 
-[Get All Jobs](#getAllJobs) | [Create Job](#createJob) | [Get Job by Id](#getJobById) | [Update Job](#updateJob)
+[Get All Jobs](#getAllJobs) | [Create Job](#createJob) | [Get Job by Id](#getJobById) | [Update Job](#updateJob) [Delete Job](#deleteJob)
 
 ## ENDPOINTS
 
@@ -213,15 +213,36 @@
     > On success return object
 
 ```
-    {
-        "id": 1,
-        "firstName": "Orlando",
-        "lastName": "Nitzsche",
-        "occupation": "Regional Functionality Strategist",
-        "experience": "experience",
-        "interests": "interests"
-    }
-
+ "id": 1,
+    "firstName": "Laurence",
+    "lastName": "Bechtelar",
+    "occupation": "Central Mobility Director",
+    "experience": "experience",
+    "interests": "interests",
+    "saved": [
+        {
+            "job_id": 47,
+            "jobTitle": "Internal Quality Agent",
+            "jobPosition": "Architect",
+            "jobDescription": "Regional",
+            "jobRequirements": "Brand",
+            "jobSalary": 903,
+            "jobTags": "dolore eos quia",
+            "jobOpenDate": "1552373894247.0",
+            "jobCloseDate": "1559589532036.0"
+        },
+        {
+            "job_id": 49,
+            "jobTitle": "Future Interactions Technician",
+            "jobPosition": "Analyst",
+            "jobDescription": "District",
+            "jobRequirements": "Data",
+            "jobSalary": 18,
+            "jobTags": "animi quia omnis",
+            "jobOpenDate": "1552355593356.0",
+            "jobCloseDate": "1570538807737.0"
+        }
+    ]
 ```
 
 ---
@@ -581,11 +602,17 @@
 
     ### Body
 
-    ```
-    Can send any part of the body that needs updating:
+    | name            | type     | required | description |
+    | --------------- | -------- | -------- | ----------- |
+    | jobTitle        | String   | No       |             |
+    | jobPosition     | String   | No       |             |
+    | jobDescription  | String   | No       |             |
+    | jobRequirements | String   | No       |             |
+    | jobSalary       | Integer  | No       |             |
+    | jobTags         | String   | No       |             |
+    | jobOpenDate     | Integer  | No       |             |
+    | jobCloseDate    | Intteger | No       |             |
 
-    jobTitle, jobPosition, jobDescription, jobRequirements, jobSalary, jobTags, jobOpenDate, jobCloseDate
-    ```
 
     ```
        {
@@ -597,9 +624,25 @@
 
     > On success return `1`
 
-# <<<<<<< HEAD
+---
 
-> > > > > > > 90f0f5af1164e4a260f0fe08cf83ab4e766a71f7
+5. `Delete Job` <a name='deleteJob'></a>
+
+    _Method URL: /jobs/:id/delete_
+
+    _HTTP method: [DELETE]_
+
+    ### Headers
+
+    | name          | type   | required | description                          |
+    | ------------- | ------ | -------- | ------------------------------------ |
+    | Content-type  | String | Yes      | Must be application/json             |
+    | Authorization | String | Yes      | Token must be from a company account |
+
+
+    ### Response
+
+    > On success return status(204)
 
 ---
 

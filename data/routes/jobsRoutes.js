@@ -38,6 +38,11 @@ router.post('/:id/save', restricted, async (req, res) => {
 	const result = await jobsHelper.saveJob(req.decodedToken.subject, id);
 	res.status(201).json(result);
 });
+router.post('/:id/remove', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await jobsHelper.removeJob(req.decodedToken.subject, id);
+	res.status(201).json(result);
+});
 
 //Get logged in user
 router.get('/info', restricted, async (req, res) => {

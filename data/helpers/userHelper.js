@@ -8,6 +8,9 @@ module.exports = {
 	getUserInfo,
 	getUserById,
 	updateUser,
+	saveUser,
+	removeUser,
+	match,
 	// deleteUser,
 };
 
@@ -18,11 +21,10 @@ function getAllUsers() {
 		'lastName',
 		'occupation',
 		'experience',
-		'interests'
+		'interests',
+		'userImg'
 	);
 }
-
-
 
 function getSaves(id) {
 	return db('userJobSaves').where('user_id', id);
@@ -31,11 +33,22 @@ function getSaves(id) {
 async function getUserInfo(user) {
 	const likes = await db('userJobSaves')
 		.join('jobPosting', 'userJobSaves.job_id', 'jobPosting.id')
-		.where('user_id', user.subject).select('job_id','jobTitle','jobPosition', 'jobDescription', 'jobRequirements', 'jobSalary','jobTags','jobOpenDate','jobCloseDate');
-	console.log(likes);
+		.where('user_id', user.subject)
+		.select(
+			'job_id',
+			'jobTitle',
+			'jobPosition',
+			'jobDescription',
+			'jobRequirements',
+			'jobSalary',
+			'jobTags',
+			'jobOpenDate',
+			'jobCloseDate',
+			'jobImg'
+		);
 	const userInfo = await db('users')
 		.where('id', user.subject)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
+		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests', 'userImg')
 		.first();
 	Object.assign(userInfo, { saved: likes });
 	return userInfo;
@@ -50,7 +63,7 @@ async function getUserInfo(user) {
 function getUserById(id) {
 	return db('users')
 		.where('id', id)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
+		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests', 'userImg')
 		.first();
 }
 
@@ -67,3 +80,42 @@ function updateUser(user, updateInfo) {
 // 		.del();
 // 	return user.email;
 // }
+
+function saveUser(companyId, userId) {
+	return db('companyUserSaves').insert({ company_id: companyId, user_id: userId });
+}
+function removeUser(companyId, userId) {
+	return db('companyUserSaves')
+		.where({ company_id: companyId, user_id: userId })
+		.del();
+}
+
+// select u.user_id,c.user_id,u.company_id,c.company_id, com.companyName, com.id, u.job_id
+// from userJobSaves u
+//  left join companyUserSaves c
+//      on u.company_id = c.company_id
+//      left join companies com
+//          on c.company_id = com.id
+//  where u.user_id = c.user_id
+
+async function match(userId) {
+	console.log(userId);
+	try {
+		const userMatches = db('userJobSaves')
+			.select(
+				'userJobSaves.user_id',
+				'userJobSaves.company_id',
+				'companies.companyName',
+				'userJobSaves.job_id'
+			)
+			.leftJoin('companyUserSaves', 'userJobSaves.company_id', companyUserSaves.company_id)
+			.leftJoin('companies', 'companyUserSaves.company_id', 'companies.id')
+			.where('userJobSaves.user_id', 'companyUserSaves.user_id');
+
+		console.log(userMatches);
+
+		return userMatches;
+	} catch (error) {
+		return error;
+	}
+}

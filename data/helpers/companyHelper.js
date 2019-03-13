@@ -14,12 +14,29 @@ function getAllCompanies() {
 	return db('companies').select('id', 'companyName', 'email', 'bio', 'address');
 }
 
-function getCompanyInfo(user) {
-	return db('companies')
+async function getCompanyInfo(user) {
+	const likes = await db('companyUserSaves')
+		.join('users', 'companyUserSaves.user_id', 'users.id')
+		.where('company_id', user.subject)
+		.select('firstName', 'lastName', 'occupation', 'experience', 'interests');
+	console.log(likes);
+	const company = await db('companies')
 		.where('email', user.email)
 		.select('id', 'companyName', 'email', 'bio', 'address')
 		.first();
+
+	Object.assign(company, { saved: likes });
+
+	return company;
 }
+
+// function getCompanyInfo(user) {
+// 	return db('companies')
+// 		.where('email', user.email)
+// 		.select('id', 'companyName', 'email', 'bio', 'address')
+// 		.first();
+// }
+
 async function getCompanyById(id) {
 	const jobs = await db('jobPosting').where('company_id', id);
 

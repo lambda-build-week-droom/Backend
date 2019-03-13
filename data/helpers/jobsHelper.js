@@ -7,8 +7,9 @@ module.exports = {
 	getAllJobs,
 	getJobById,
 	updateJob,
-	saveJob,
 	deleteJob,
+	saveJob,
+	removeJob,
 };
 
 async function createJob(jobPost) {
@@ -57,6 +58,21 @@ async function deleteJob(id) {
 	}
 }
 
-function saveJob(userId, jobId) {
-	return db('userJobSaves').insert({ user_id: userId, job_id: jobId });
+async function saveJob(userId, jobId) {
+	const job = await db('jobPosting')
+		.where('id', jobId)
+		.first();
+	console.log('job', job);
+	return db('userJobSaves').insert({
+		user_id: userId,
+		job_id: jobId,
+		company_id: job.company_id,
+	});
+}
+async function removeJob(userId, jobId) {
+	const job = await db('jobPosting').where('id', id);
+
+	return db('userJobSaves')
+		.where({ user_id: userId, job_id: jobId, company_id: job.company_id })
+		.del();
 }
