@@ -28,7 +28,7 @@ router.get('/info', restricted, async (req, res) => {
 });
 
 //Update User - response 202 - returns a 1 if updated
-router.put('/update', restricted, imageProcess, async (req, res) => {
+router.put('/update', restricted, async (req, res) => {
 	const updateInfo = req.body;
 	const result = await userHelper.updateUser(req.decodedToken, updateInfo);
 	res.status(202).json(result);
