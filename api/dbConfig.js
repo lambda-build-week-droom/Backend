@@ -36,8 +36,8 @@ module.exports = knex(config[dbEnv]);
 // [x] [GET] https://droom-backend.herokuapp.com/jobs/
 // [x] [POST] https://droom-backend.herokuapp.com/jobs/
 // [x] [GET] https://droom-backend.herokuapp.com/jobs/info
-// [] [GET] https://droom-backend.herokuapp.com/jobs/:id
+// [x] [GET] https://droom-backend.herokuapp.com/jobs/:id
 // [] [PUT] https://droom-backend.herokuapp.com/jobs/:id/update
-// [] [DELETE] https://droom-backend.herokuapp.com/jobs/:id/delete
+// [x] [DELETE] https://droom-backend.herokuapp.com/jobs/:id/delete
 // [] [POST] https://droom-backend.herokuapp.com/jobs/:id/save
 // [] [POST] https://droom-backend.herokuapp.com/jobs/:id/remove

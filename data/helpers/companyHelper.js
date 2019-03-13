@@ -52,13 +52,13 @@ function updateCompany(user, updateInfo) {
 
 async function deleteCompany(id) {
 	try {
-		await db('companyUserSaves')
+		const saves = await db('companyUserSaves')
 			.where('company_id', id)
 			.del();
-		await db('companies')
+		const result = await db('companies')
 			.where('id', id)
 			.del();
-		return;
+		return res.send('success');
 	} catch (error) {
 		return error;
 	}
