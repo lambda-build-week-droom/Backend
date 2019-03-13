@@ -22,7 +22,7 @@ router.post('/register', emailCheck, async (req, res) => {
 					email: user.email,
 					password: user.password,
 				};
-				const result = await db('users').insert(newUser);
+				const result = await db('users').insert(newUser, 'id');
 				res.status(201).json({ message: 'Successfully created user account', result });
 			} catch (error) {
 				res.status(500).json({ message: 'Error processing the request' });
@@ -40,7 +40,7 @@ router.post('/register', emailCheck, async (req, res) => {
 					email: user.email,
 					password: user.password,
 				};
-				const result = await db('companies').insert(newCompany);
+				const result = await db('companies').insert(newCompany, 'id');
 				res.status(201).json({ message: 'Successfully created company', result });
 			} catch {
 				res.status(500).json({ message: 'Error processing the request' });
