@@ -26,4 +26,10 @@ server.get('/', (req, res) => {
 	res.send('Sanity Check');
 });
 
+server.use(function(req, res) {
+	res.status(404).json({
+		message: 'Invalid endpoint!',
+	});
+});
+
 module.exports = server;

@@ -91,39 +91,17 @@ function removeUser(companyId, userId) {
 		.del();
 }
 
-// select u.user_id,c.user_id,u.company_id,c.company_id, com.companyName, com.id, u.job_id
-// from userJobSaves u
-//  left join companyUserSaves c
-//      on u.company_id = c.company_id
-//      left join companies com
-//          on c.company_id = com.id
-//  where u.user_id = c.user_id
-
-// select userJobSaves.user_id, userJobSaves.company_id, userJobSaves.job_id
-// from userJobSaves
-//   left join companyUserSaves
-//       on userJobSaves.company_id = companyUserSaves.company_id
-//       where userJobSaves.user_id = companyUserSaves.user_id
-
 async function match(id) {
 	try {
-		// const userMatches = await db('userJobSaves')
-		// 	.leftJoin('companyUserSaves', 'userJobSaves.company_id', 'companyUserSaves.company_id')
-		// 	.where('userJobSaves.user_id', 'companyUserSaves.user_id')
-		// 	.select('userJobSaves.user_id', 'userJobSaves.company_id', 'userJobSaves.job_id');
-
 		const userMatches = await db('userJobSaves')
 			.join('companyUserSaves', 'userJobSaves.company_id', 'companyUserSaves.company_id')
 			.where('userJobSaves.user_id', id)
 			.where('companyUserSaves.user_id', id)
 			.select(
 				'userJobSaves.user_id as UserId',
-				// 'companyUserSaves.user_id as 2UserId',
 				'userJobSaves.company_id as companyId',
 				'userJobSaves.job_id as jobId'
 			);
-		console.log('match', userMatches);
-
 		return userMatches;
 	} catch (error) {
 		return error;
