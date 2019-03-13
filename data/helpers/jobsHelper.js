@@ -70,9 +70,15 @@ async function saveJob(userId, jobId) {
 	});
 }
 async function removeJob(userId, jobId) {
-	const job = await db('jobPosting').where('id', id);
+	try {
+		await db('userJobSaves')
+			.where({ user_id: userId, job_id: jobId, company_id: job.company_id })
+			.del();
 
-	return db('userJobSaves')
-		.where({ user_id: userId, job_id: jobId, company_id: job.company_id })
-		.del();
+		await db('jobPosting')
+			.where('id', id)
+			.del();
+	} catch (error) {
+		res.status(500).json(error);
+	}
 }

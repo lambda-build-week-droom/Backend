@@ -10,8 +10,8 @@ module.exports = {
 	updateUser,
 	saveUser,
 	removeUser,
+	deleteUser,
 	match,
-	// deleteUser,
 };
 
 function getAllUsers() {
@@ -54,12 +54,6 @@ async function getUserInfo(user) {
 	return userInfo;
 }
 
-// function getUserInfo(user) {
-// 	return db('users')
-// 		.where('email', user.email)
-// 		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests')
-// 		.first();
-// }
 function getUserById(id) {
 	return db('users')
 		.where('id', id)
@@ -73,17 +67,24 @@ function updateUser(user, updateInfo) {
 		.update(updateInfo);
 }
 
-// function deleteUser(user) {
-// 	console.log('delete', user.email);
-// 	const userDelete = db('users')
-// 		.where('email', user.email)
-// 		.del();
-// 	return user.email;
-// }
+async function deleteUser(user) {
+	try {
+		const result = await db('userJobSaves')
+			.where('user_id', user.subject)
+			.del();
+		const userDelete = await db('users')
+			.where('email', user.email)
+			.del();
+		return 1;
+	} catch (error) {
+		return error;
+	}
+}
 
 function saveUser(companyId, userId) {
 	return db('companyUserSaves').insert({ company_id: companyId, user_id: userId });
 }
+
 function removeUser(companyId, userId) {
 	return db('companyUserSaves')
 		.where({ company_id: companyId, user_id: userId })
@@ -99,7 +100,7 @@ function removeUser(companyId, userId) {
 //  where u.user_id = c.user_id
 
 async function match(userId) {
-	console.log(userId);
+	// console.log(userId);
 	try {
 		const userMatches = db('userJobSaves')
 			.select(
@@ -112,7 +113,7 @@ async function match(userId) {
 			.leftJoin('companies', 'companyUserSaves.company_id', 'companies.id')
 			.where('userJobSaves.user_id', 'companyUserSaves.user_id');
 
-		console.log(userMatches);
+		// console.log(userMatches);
 
 		return userMatches;
 	} catch (error) {
