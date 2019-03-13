@@ -56,7 +56,7 @@ router.post('/register', emailCheck, async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-	let { email, password, type } = req.body;
+	let { email, password } = req.body;
 
 	const user = await db('users')
 		.where('email', email)

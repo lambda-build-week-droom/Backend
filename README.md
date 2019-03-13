@@ -136,6 +136,7 @@ User Login
 
     ```
         {
+            companyName: "Company",
             email: "johnDoe@test.com",
             password: "password123"
             type:'company'
