@@ -10,8 +10,8 @@ const router = express.Router();
 
 router.post('/register', emailCheck, async (req, res) => {
 	// eamil, password, type =  required
-	// firstName, lastname, occupation, expereience, interests = optional for user
-	// name, bio, address
+	// firstName, lastname, occupation, expereience, interests, userImg = optional for user
+	// name, bio, address, companyImg
 	let user = req.body;
 	const hash = bcrypt.hashSync(user.password, 8);
 	user.password = hash;
@@ -25,7 +25,7 @@ router.post('/register', emailCheck, async (req, res) => {
 				const result = await db('users').insert(newUser);
 				res.status(201).json({ message: 'Successfully created user account', result });
 			} catch (error) {
-				// res.status(400).json({ message: 'Email address is already in use', error });
+				res.status(500).json({ message: 'Error processing the request' });
 			}
 		} else {
 			res.status(404).json({
@@ -43,7 +43,7 @@ router.post('/register', emailCheck, async (req, res) => {
 				const result = await db('companies').insert(newCompany);
 				res.status(201).json({ message: 'Successfully created company', result });
 			} catch {
-				// res.status(400).json({ message: 'Email address is already in use' });
+				res.status(500).json({ message: 'Error processing the request' });
 			}
 		} else {
 			res.status(404).json({
@@ -90,11 +90,12 @@ router.post('/login', async (req, res) => {
 				companyName: company.companyName,
 				bio: company.bio,
 				address: company.address,
+				companyImg: company.companyImg,
 			};
 
 			res.status(200).json({ token, companyInfo });
 		} catch {
-			res.status(404).json({ message: 'unable to find that user' });
+			res.status(404).json({ message: 'unable to find that company' });
 		}
 	} else {
 		res.status(500).json({ message: 'login server issue' });

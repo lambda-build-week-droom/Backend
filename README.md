@@ -10,6 +10,7 @@
 
 ### START SERVER
 
+-   run 'yarn install`
 -   run `yarn server`
 
 ---
@@ -54,7 +55,8 @@ User Login
 ```
 {
     "email":"user@user.com",
-    "password":"password"
+    "password":"password",
+    "type":"user"
 }
 ```
 
