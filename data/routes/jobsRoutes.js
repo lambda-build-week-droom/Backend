@@ -33,7 +33,7 @@ router.get('/', restricted, async (req, res) => {
 
 //Get logged in user
 router.get('/info', restricted, async (req, res) => {
-	const result = await userHelper.getUserInfo(req.decodedToken);
+	const result = await userHelper.getUserInfo(req.decodedToken.subject);
 	res.status(200).json(result);
 });
 
