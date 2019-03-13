@@ -85,7 +85,7 @@ router.post('/:id/save', restricted, async (req, res) => {
 });
 
 // Remove saved job from profile - response 204
-router.DELETE('/:id/remove', restricted, async (req, res) => {
+router.delete('/:id/remove', restricted, async (req, res) => {
 	try {
 		const { id } = req.params;
 		const result = await userHelper.removeUser(req.decodedToken.subject, id);
