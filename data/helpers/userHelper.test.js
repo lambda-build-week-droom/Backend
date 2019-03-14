@@ -1,5 +1,5 @@
-const request = require('supertest');
 require('dotenv').config();
+const request = require('supertest');
 const express = require('express');
 const knex = require('knex');
 const knexConfig = require('../../knexfile');
