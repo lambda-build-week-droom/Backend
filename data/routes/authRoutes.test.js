@@ -4,6 +4,8 @@ const express = require('express');
 const knex = require('knex');
 const knexConfig = require('../../knexfile');
 const db = knex(knexConfig.testing);
+const server = require('../../api/server');
+const faker = require('faker');
 
 const authRoute = require('./authRoutes');
 
@@ -13,51 +15,54 @@ afterEach(async () => {
 
 describe('/register', () => {
 	test('should return 201', async () => {
-		try {
-			const newUser = { email: 'test@test.com', password: 'password', type: 'user' };
-			const res = await request(server)
-				.post('/register')
-				.send(newUser);
-			expect(res.status).toBe(201);
-		} catch (error) {}
+		const newUser = { email: faker.internet.email(), password: 'password', type: 'user' };
+		const res = await request(server)
+			.post('/auth/register')
+			.send(newUser);
+		console.log(res.status);
+		expect(res.status).toBe(201);
+	});
+	test('should return [1]', async () => {
+		const newUser = { email: faker.internet.email(), password: '132', type: 'user' };
+		const res = await request(server)
+			.post('/auth/register')
+			.send(newUser);
+		console.log(res.body.result);
+		expect(res.body.result).toMatch(/[\[*\]]/);
 	});
 	test('should return status 500', async () => {
-		try {
-			const newUser = { email: 'test@test.com', password: 'password' };
-			const res = await request(server)
-				.post('/register')
-				.send(newUser);
-			expect(res.status).toBe(100);
-		} catch (error) {}
+		const newUser = { email: faker.internet.email(), password: 'password' };
+		const res = await request(server)
+			.post('/auth/register')
+			.send(newUser);
+		expect(res.status).toBe(500);
 	});
 
 	test('should return 500', async () => {
-		try {
-			const newUser = { email: 'test@test.com', type: 'user' };
-			const res = await request(server)
-				.post('/register')
-				.send(newUser);
-			expect(res.status).toBe(500);
-		} catch (error) {}
+		const newUser = { email: faker.internet.email(), type: 'user' };
+		const res = await request(server)
+			.post('/register')
+			.send(newUser);
+		expect(res.status).toBe(404);
 	});
 	test('should return an object', async () => {
-		try {
-			const newUser = { email: 'test@test.com', password: 'password' };
-			const res = await request(server)
-				.post('/register')
-				.send(newUser);
-			expect(res.type).toExpect('object');
-		} catch (error) {}
+		const newUser = { email: faker.internet.email(), password: 'password' };
+		const res = await request(server)
+			.post('/auth/register')
+			.send(newUser);
+		expect(res.type).toBe('application/json');
 	});
 });
 describe('/login', () => {
 	test('should return 200', async () => {
-		try {
-			const newUser = { email: 'test@test.com', password: 'password' };
-			const res = await request(server)
-				.post('/login')
-				.send(newUser);
-			expect(res.status).toBe(200);
-		} catch (error) {}
+		const userRegister = { email: 'test5@test.com', password: 'password', type: 'user' };
+		const res1 = await request(server)
+			.post('/auth/register')
+			.send(userRegister);
+		const userLogin = { email: 'test5@test.com', password: 'password' };
+		const res = await request(server)
+			.post('/auth/login')
+			.send(userLogin);
+		expect(res.status).toBe(200);
 	});
 });

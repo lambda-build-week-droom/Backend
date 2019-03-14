@@ -23,6 +23,10 @@ describe('GET', () => {
 		const res = await request(server).get('/');
 		expect(res.status).toBe(200);
 	});
+	test('should return status 404', async () => {
+		const res = await request(server).get('/test');
+		expect(res.status).toBe(404);
+	});
 
 	test('should return JSON', async () => {
 		const res = await request(server).get('/');

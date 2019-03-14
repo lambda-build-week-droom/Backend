@@ -15,7 +15,7 @@ router.post('/register', emailCheck, async (req, res) => {
 	let user = req.body;
 	const hash = bcrypt.hashSync(user.password, 8);
 	user.password = hash;
-	if (user.type && user.type === 'user') {
+	if (user.type === 'user') {
 		if (user.email && user.password) {
 			try {
 				const newUser = {
@@ -32,7 +32,7 @@ router.post('/register', emailCheck, async (req, res) => {
 				message: 'Make sure email & password are included',
 			});
 		}
-	} else if (user.type && user.type === 'company') {
+	} else if (user.type === 'company') {
 		if (user.email && user.password) {
 			try {
 				const newCompany = {
