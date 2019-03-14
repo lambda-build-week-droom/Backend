@@ -13,7 +13,7 @@ router.get('/', restricted, async (req, res) => {
 	try {
 		const result = await userHelper.getAllUsers();
 		res.status(200).json(result);
-	} catch {
+	} catch (error) {
 		res.status(500).json({ message: 'Internal server error' });
 	}
 });
@@ -25,16 +25,22 @@ router.get('/info', restricted, async (req, res) => {
 		// const saves = await userHelper.getSaves(result.id);
 
 		res.status(200).json(result);
-	} catch (err) {
+	} catch (error) {
 		res.status(500).json('server error');
 	}
 });
 
 //Update User - response 202 - returns a 1 if updated
 router.put('/update', restricted, async (req, res) => {
-	const updateInfo = req.body;
-	const result = await userHelper.updateUser(req.decodedToken, updateInfo);
-	res.status(202).json(result);
+	try {
+		{
+		}
+		const updateInfo = req.body;
+		const result = await userHelper.updateUser(req.decodedToken, updateInfo);
+		res.status(202).json(result);
+	} catch (error) {
+		res.status(500).json(error);
+	}
 });
 
 // Delete User - response 204
@@ -61,7 +67,7 @@ router.get('/matched', restricted, async (req, res) => {
 	try {
 		const result = await userHelper.match(req.decodedToken.subject);
 		res.status(200).json(result);
-	} catch {
+	} catch (error) {
 		res.status(500).json({ message: 'Internal server error' });
 	}
 });

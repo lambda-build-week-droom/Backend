@@ -23,7 +23,7 @@ server.use('/companies', companyRoute);
 server.use('/jobs', jobRoute);
 
 server.get('/', (req, res) => {
-	res.send('Sanity Check PG');
+	res.status(200).json('Sanity Check');
 });
 
 server.use(function(req, res) {
