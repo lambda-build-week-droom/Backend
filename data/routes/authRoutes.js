@@ -36,7 +36,7 @@ router.post('/register', emailCheck, async (req, res) => {
 		if (user.email && user.password) {
 			try {
 				const newCompany = {
-					// companyName: user.companyName,
+					companyName: user.companyName,
 					email: user.email,
 					password: user.password,
 				};

@@ -33,10 +33,7 @@ router.get('/info', restricted, async (req, res) => {
 //Update User - response 202 - returns a 1 if updated
 router.put('/update', restricted, async (req, res) => {
 	try {
-		{
-		}
-		const updateInfo = req.body;
-		const result = await userHelper.updateUser(req.decodedToken, updateInfo);
+		const result = await userHelper.updateUser(req.decodedToken, req.body);
 		res.status(202).json(result);
 	} catch (error) {
 		res.status(500).json(error);
@@ -45,11 +42,9 @@ router.put('/update', restricted, async (req, res) => {
 
 // Delete User - response 204
 router.delete('/delete', restricted, async (req, res) => {
-	console.log(req.decodedToken.subject);
 	const user = await db('users')
 		.where('id', req.decodedToken.subject)
 		.first();
-	console.log(user);
 	try {
 		if (user) {
 			const result = await userHelper.deleteUser(req.decodedToken.subject);
