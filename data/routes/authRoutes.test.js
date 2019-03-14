@@ -19,17 +19,9 @@ describe('/register', () => {
 		const res = await request(server)
 			.post('/auth/register')
 			.send(newUser);
-		console.log(res.status);
 		expect(res.status).toBe(201);
 	});
-	test('should return [1]', async () => {
-		const newUser = { email: faker.internet.email(), password: '132', type: 'user' };
-		const res = await request(server)
-			.post('/auth/register')
-			.send(newUser);
-		console.log(res.body.result);
-		expect(res.body.result).toMatch(/[\[*\]]/);
-	});
+
 	test('should return status 500', async () => {
 		const newUser = { email: faker.internet.email(), password: 'password' };
 		const res = await request(server)
@@ -45,8 +37,8 @@ describe('/register', () => {
 			.send(newUser);
 		expect(res.status).toBe(404);
 	});
-	test('should return an object', async () => {
-		const newUser = { email: faker.internet.email(), password: 'password' };
+	test('should return json', async () => {
+		const newUser = { email: faker.internet.email(), password: 'password', type: 'user' };
 		const res = await request(server)
 			.post('/auth/register')
 			.send(newUser);
@@ -64,5 +56,16 @@ describe('/login', () => {
 			.post('/auth/login')
 			.send(userLogin);
 		expect(res.status).toBe(200);
+	});
+	test('should return 404', async () => {
+		const userRegister = { email: 'test5@test.com', password: 'password', type: 'user' };
+		const res1 = await request(server)
+			.post('/auth/register')
+			.send(userRegister);
+		const userLogin = { email: '6@test.com', password: 'password' };
+		const res = await request(server)
+			.post('/auth/login')
+			.send(userLogin);
+		expect(res.status).toBe(404);
 	});
 });
