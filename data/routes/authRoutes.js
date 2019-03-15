@@ -12,6 +12,9 @@ router.post('/register', emailCheck, async (req, res) => {
 	// eamil, password, type =  required
 	// firstName, lastname, occupation, expereience, interests, userImg = optional for user
 	// name, bio, address, companyImg
+	if (!req.body.type) {
+		res.send(500);
+	}
 	let user = req.body;
 	const hash = bcrypt.hashSync(user.password, 8);
 	user.password = hash;
@@ -79,7 +82,7 @@ router.post('/login', async (req, res) => {
 
 			res.status(200).json({ token, userInfo });
 		} catch (error) {
-			res.status(404).json({ message: 'unable to find that user' });
+			res.status(500).json({ message: 'login server issue' });
 		}
 	} else if (company && bcrypt.compareSync(password, company.password)) {
 		try {
@@ -94,10 +97,10 @@ router.post('/login', async (req, res) => {
 
 			res.status(200).json({ token, companyInfo });
 		} catch (error) {
-			res.status(404).json({ message: 'unable to find that company' });
+			res.status(500).json({ message: 'login server issue' });
 		}
 	} else {
-		res.status(500).json({ message: 'login server issue' });
+		res.status(404).json({ message: 'That email address does not exist' });
 	}
 });
 
