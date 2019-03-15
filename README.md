@@ -16,6 +16,7 @@
 
 ---
 
+<!--
 ### TLDR
 
 -   x marks tested
@@ -57,7 +58,7 @@
     [ ] [DELETE]    /jobs/:id/remove
 
 ```
-
+-->
 User Login
 
 ```
