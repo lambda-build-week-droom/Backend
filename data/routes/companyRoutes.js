@@ -10,7 +10,7 @@ router.get('/', restricted, async (req, res) => {
 	try {
 		const result = await companyHelper.getAllCompanies();
 		res.status(200).json(result);
-	} catch {
+	} catch (error) {
 		res.status(500).json({ message: 'Internal server error' });
 	}
 });
@@ -21,19 +21,16 @@ router.get('/info', restricted, async (req, res) => {
 	res.status(200).json(result);
 });
 
-// Get Company by ID
-router.get('/:id', restricted, async (req, res) => {
-	const { id } = req.params;
-	const result = await companyHelper.getCompanyById(id);
-	res.status(200).json(result);
-});
-
 //Update Company
 router.put('/update', restricted, async (req, res) => {
-	console.log(req.decodedToken);
-	const updateInfo = req.body;
-	const result = await companyHelper.updateCompany(req.decodedToken, updateInfo);
-	res.status(200).json(result); // returns a 1 if updated
+	try {
+		console.log(req.decodedToken);
+		const updateInfo = req.body;
+		const result = await companyHelper.updateCompany(req.decodedToken, updateInfo);
+		res.status(200).json(result); // returns a 1 if updated
+	} catch (error) {
+		res.status(500).json(error);
+	}
 });
 
 //Delete Company
@@ -49,6 +46,17 @@ router.delete('/delete', restricted, async (req, res) => {
 	} catch (error) {
 		res.status(500);
 	}
+});
+
+// Match
+
+// get companyUserSaves
+
+// Get Company by ID
+router.get('/:id', restricted, async (req, res) => {
+	const { id } = req.params;
+	const result = await companyHelper.getCompanyById(id);
+	res.status(200).json(result);
 });
 
 module.exports = router;

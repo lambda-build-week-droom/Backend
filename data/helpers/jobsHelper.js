@@ -14,9 +14,9 @@ module.exports = {
 
 async function createJob(jobPost) {
 	try {
-		const result = await db('jobPosting').insert(jobPost);
+		const result = await db('jobPosting').insert(jobPost, 'id');
 
-		return 1;
+		return result;
 	} catch (error) {
 		return error;
 	}
@@ -25,10 +25,21 @@ function getAllJobs() {
 	return db('jobPosting');
 }
 
-function getJobById(id) {
-	return db('jobPosting')
-		.where('id', id)
-		.first();
+async function getJobById(id) {
+	try {
+		const job = await db('jobPosting')
+			.where('id', id)
+			.first();
+		if (job) {
+			return job;
+		} else {
+			return res.status(404).json({ message: 'Unable to find job with that ID' });
+		}
+
+		return job;
+	} catch (error) {
+		return error;
+	}
 }
 
 function updateJob(id, updateInfo) {
@@ -63,11 +74,14 @@ async function saveJob(userId, jobId) {
 		.where('id', jobId)
 		.first();
 	console.log('job', job);
-	return db('userJobSaves').insert({
-		user_id: userId,
-		job_id: jobId,
-		company_id: job.company_id,
-	});
+	return db('userJobSaves').insert(
+		{
+			user_id: userId,
+			job_id: jobId,
+			company_id: job.company_id,
+		},
+		'id'
+	);
 }
 async function removeJob(userId, jobId) {
 	try {

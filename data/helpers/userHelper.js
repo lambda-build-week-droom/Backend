@@ -31,34 +31,61 @@ function getSaves(id) {
 }
 
 async function getUserInfo(user) {
-	const likes = await db('userJobSaves')
-		.join('jobPosting', 'userJobSaves.job_id', 'jobPosting.id')
-		.where('user_id', user.subject)
-		.select(
-			'job_id',
-			'jobTitle',
-			'jobPosition',
-			'jobDescription',
-			'jobRequirements',
-			'jobSalary',
-			'jobTags',
-			'jobOpenDate',
-			'jobCloseDate',
-			'jobImg'
-		);
-	const userInfo = await db('users')
-		.where('id', user.subject)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests', 'userImg')
-		.first();
-	Object.assign(userInfo, { saved: likes });
-	return userInfo;
+	try {
+		const likes = await db('userJobSaves')
+			.join('jobPosting', 'userJobSaves.job_id', 'jobPosting.id')
+			.where('user_id', user.subject)
+			.select(
+				'job_id',
+				'jobTitle',
+				'jobPosition',
+				'jobDescription',
+				'jobRequirements',
+				'jobSalary',
+				'jobTags',
+				'jobOpenDate',
+				'jobCloseDate',
+				'jobImg'
+			);
+		const userInfo = await db('users')
+			.where('id', user.subject)
+			.select(
+				'id',
+				'firstName',
+				'lastName',
+				'email',
+				'occupation',
+				'experience',
+				'interests',
+				'userImg'
+			)
+			.first();
+		Object.assign(userInfo, { saved: likes });
+		return userInfo;
+	} catch (error) {
+		return error;
+	}
 }
 
-function getUserById(id) {
-	return db('users')
-		.where('id', id)
-		.select('id', 'firstName', 'lastName', 'occupation', 'experience', 'interests', 'userImg')
-		.first();
+async function getUserById(id) {
+	try {
+		const user = await db('users')
+			.where('id', id)
+			.select(
+				'id',
+				'firstName',
+				'lastName',
+				'occupation',
+				'experience',
+				'interests',
+				'userImg'
+			)
+			.first();
+		return user;
+	} catch (error) {
+		// res.status(500).send('Internal server error');
+		return error;
+	}
 }
 
 function updateUser(user, updateInfo) {
@@ -70,19 +97,19 @@ function updateUser(user, updateInfo) {
 async function deleteUser(user) {
 	try {
 		const result = await db('userJobSaves')
-			.where('user_id', user.subject)
+			.where('user_id', user)
 			.del();
 		const userDelete = await db('users')
-			.where('email', user.email)
+			.where('id', user)
 			.del();
-		return 1;
+		return { message: 'Success' };
 	} catch (error) {
 		return error;
 	}
 }
 
 function saveUser(companyId, userId) {
-	return db('companyUserSaves').insert({ company_id: companyId, user_id: userId });
+	return db('companyUserSaves').insert({ company_id: companyId, user_id: userId }, 'id');
 }
 
 function removeUser(companyId, userId) {
@@ -91,30 +118,17 @@ function removeUser(companyId, userId) {
 		.del();
 }
 
-// select u.user_id,c.user_id,u.company_id,c.company_id, com.companyName, com.id, u.job_id
-// from userJobSaves u
-//  left join companyUserSaves c
-//      on u.company_id = c.company_id
-//      left join companies com
-//          on c.company_id = com.id
-//  where u.user_id = c.user_id
-
-async function match(userId) {
-	// console.log(userId);
+async function match(id) {
 	try {
-		const userMatches = db('userJobSaves')
+		const userMatches = await db('userJobSaves')
+			.join('companyUserSaves', 'userJobSaves.company_id', 'companyUserSaves.company_id')
+			.where('userJobSaves.user_id', id)
+			.where('companyUserSaves.user_id', id)
 			.select(
-				'userJobSaves.user_id',
-				'userJobSaves.company_id',
-				'companies.companyName',
-				'userJobSaves.job_id'
-			)
-			.leftJoin('companyUserSaves', 'userJobSaves.company_id', companyUserSaves.company_id)
-			.leftJoin('companies', 'companyUserSaves.company_id', 'companies.id')
-			.where('userJobSaves.user_id', 'companyUserSaves.user_id');
-
-		// console.log(userMatches);
-
+				'userJobSaves.user_id as UserId',
+				'userJobSaves.company_id as companyId',
+				'userJobSaves.job_id as jobId'
+			);
 		return userMatches;
 	} catch (error) {
 		return error;

@@ -27,7 +27,7 @@ async function emailCheck(req, res, next) {
 	if (userAccount.length > 0 || companyAccount.length > 0) {
 		res.status(400).json({ message: 'Email account alredy in use' });
 	} else {
-		console.log('next');
+		// console.log('next');
 		next();
 	}
 }
@@ -35,7 +35,7 @@ async function emailCheck(req, res, next) {
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.CLOUDINARY_API_KEY,
-	api_secret: process.env.CLOUDINARY_SECRET,
+	api_secret: process.env.CLOUDINARY_SECRET
 });
 
 function imageProcess(res, req, next) {
@@ -69,5 +69,5 @@ function imageProcess(res, req, next) {
 module.exports = {
 	restricted,
 	emailCheck,
-	imageProcess,
+	imageProcess
 };

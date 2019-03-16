@@ -10,9 +10,73 @@
 
 ### START SERVER
 
+-   run `yarn install`
+
 -   run `yarn server`
 
 ---
+
+<!--
+### TLDR
+
+-   x marks tested
+
+```
+    Authentication
+
+    [X] [POST]      /auth/register
+    [X] [POST]      /auth/login
+
+    Users
+
+    [X] [GET]       /users/
+    [X] [GET]       /users/info
+    [X] [PUT]       /users/update
+    [X] [DELETE]    /users/delete
+    [ ] [GET]       /users/matched
+    [X] [GET]       /users/:id
+    [ ] [POST]      /users/:id/save
+    [ ] [DELETE]      /users/:id/remove
+
+    Companies
+
+    [X] [GET]       /companies/
+    [X] [GET]       /companies/info
+    [X] [GET]       /companies/:id
+    [X] [PUT]       /companies/update
+    [X] [DELETE]    /companies/delete
+
+    Jobs
+
+    [X] [GET]       /jobs/
+    [X] [POST]      /jobs/
+    [X] [GET]       /jobs/info
+    [X] [GET]       /jobs/:id
+    [ ] [PUT]       /jobs/:id/update
+    [X] [DELETE]    /jobs/:id/delete
+    [ ] [POST]      /jobs/:id/save
+    [ ] [DELETE]    /jobs/:id/remove
+
+```
+-->
+User Login
+
+```
+{
+    "email":"user@user.com",
+    "password":"password",
+    "type":"user"
+}
+```
+
+User Login
+
+```
+{
+    "email":"company@company.com",
+    "password":"password"
+}
+```
 
 [Axios Example](#axios_example)
 
@@ -24,15 +88,15 @@
 
 #### Users
 
-[Get All Users](#allusers) | [Get User Info](#getUserInfo) | [Get User by Id](#getUserById) | [Update User](#updateUser)
+[Get All Users](#allusers) | [Get User Info](#getUserInfo) | [Get User by Id](#getUserById) | [Update User](#updateUser) | [Delete User](#deleteUser) | [User Matches](#userMatched) | [Save user to Company](#userSave) | [Remove user to Company](#userRemove)
 
 #### Companies
 
-[Get All Companies](#allCompanies) | [Get Company Info](#getCompanyInfo) | [Get Company by Id](#getCompanyById) | [Update Company](#updateCompany)
+[Get All Companies](#allCompanies) | [Get Company Info](#getCompanyInfo) | [Get Company by Id](#getCompanyById) | [Update Company](#updateCompany) | [Delete Company](#deleteCompany)
 
 #### Jobs
 
-[Get All Jobs](#getAllJobs) | [Create Job](#createJob) | [Get Job by Id](#getJobById) | [Update Job](#updateJob) [Delete Job](#deleteJob)
+[Get All Jobs](#getAllJobs) | [Create Job](#createJob) | [Get Job by Id](#getJobById) | [Update Job](#updateJob) [Delete Job](#deleteJob) | [Get jobs for signed in Company](#jobsInfo) | [Save job to user profile](#saveToUser) | [Remove job from use profile](#removeFromUser)
 
 ## ENDPOINTS
 
@@ -81,6 +145,7 @@
 
     ```
         {
+            companyName: "Company",
             email: "johnDoe@test.com",
             password: "password123"
             type:'company'
@@ -170,28 +235,28 @@
 
     > On success return array
 
-```
+    ```
 
-       [
-           {
-               "id": 1,
-               "firstName": "Orlando",
-               "lastName": "Nitzsche",
-               "occupation": "Regional Functionality Strategist",
-               "experience": "experience",
-               "interests": "interests"
-           },
-           {
-               "id": 2,
-               "firstName": "Delphine",
-               "lastName": "Shanahan",
-               "occupation": "Product Factors Orchestrator",
-               "experience": "experience",
-               "interests": "interests"
-           }
-       ]
+        [
+            {
+                "id": 1,
+                "firstName": "Orlando",
+                "lastName": "Nitzsche",
+                "occupation": "Regional Functionality Strategist",
+                "experience": "experience",
+                "interests": "interests"
+            },
+            {
+                "id": 2,
+                "firstName": "Delphine",
+                "lastName": "Shanahan",
+                "occupation": "Product Factors Orchestrator",
+                "experience": "experience",
+                "interests": "interests"
+            }
+        ]
 
-```
+    ```
 
 ---
 
@@ -212,38 +277,38 @@
 
     > On success return object
 
-```
- "id": 1,
-    "firstName": "Laurence",
-    "lastName": "Bechtelar",
-    "occupation": "Central Mobility Director",
-    "experience": "experience",
-    "interests": "interests",
-    "saved": [
-        {
-            "job_id": 47,
-            "jobTitle": "Internal Quality Agent",
-            "jobPosition": "Architect",
-            "jobDescription": "Regional",
-            "jobRequirements": "Brand",
-            "jobSalary": 903,
-            "jobTags": "dolore eos quia",
-            "jobOpenDate": "1552373894247.0",
-            "jobCloseDate": "1559589532036.0"
-        },
-        {
-            "job_id": 49,
-            "jobTitle": "Future Interactions Technician",
-            "jobPosition": "Analyst",
-            "jobDescription": "District",
-            "jobRequirements": "Data",
-            "jobSalary": 18,
-            "jobTags": "animi quia omnis",
-            "jobOpenDate": "1552355593356.0",
-            "jobCloseDate": "1570538807737.0"
-        }
-    ]
-```
+    ```
+    "id": 1,
+        "firstName": "Laurence",
+        "lastName": "Bechtelar",
+        "occupation": "Central Mobility Director",
+        "experience": "experience",
+        "interests": "interests",
+        "saved": [
+            {
+                "job_id": 47,
+                "jobTitle": "Internal Quality Agent",
+                "jobPosition": "Architect",
+                "jobDescription": "Regional",
+                "jobRequirements": "Brand",
+                "jobSalary": 903,
+                "jobTags": "dolore eos quia",
+                "jobOpenDate": "1552373894247.0",
+                "jobCloseDate": "1559589532036.0"
+            },
+            {
+                "job_id": 49,
+                "jobTitle": "Future Interactions Technician",
+                "jobPosition": "Analyst",
+                "jobDescription": "District",
+                "jobRequirements": "Data",
+                "jobSalary": 18,
+                "jobTags": "animi quia omnis",
+                "jobOpenDate": "1552355593356.0",
+                "jobCloseDate": "1570538807737.0"
+            }
+        ]
+    ```
 
 ---
 
@@ -264,17 +329,17 @@
 
     > On success return object
 
-```
-    {
-        "id": 2,
-        "firstName": "Imani",
-        "lastName": "Heidenreich",
-        "occupation": "Future Tactics Agent",
-        "experience": "experience",
-        "interests": "interests"
-    }
+    ```
+        {
+            "id": 2,
+            "firstName": "Imani",
+            "lastName": "Heidenreich",
+            "occupation": "Future Tactics Agent",
+            "experience": "experience",
+            "interests": "interests"
+        }
 
-```
+    ```
 
 ---
 
@@ -314,6 +379,11 @@
 
 ---
 
+5. `Delete User`<a name='deleteUser'></a>
+6. `User Matches`<a name='userMatched'></a>
+7. `Save user to Company`<a name='userSave'></a>
+8. `Remove user to Company`<a name='userRemove'></a>
+
 ## Companies
 
 1. `Get All Companies` <a name='allCompanies'></a>
@@ -333,25 +403,25 @@
 
     > On success return array
 
-```
+    ```
 
-    [
-        {
-            "id": 1,
-            "companyName": "Company",
-            "email": "user@company.com",
-            "bio": null,
-            "address": null
-        },
-        {
-            "id": 2,
-            "companyName": "Apple",
-            "email": "hr@apple.com",
-            "bio": null,
-            "address": "1 Infinite Loop"
-        }
-    ]
-```
+        [
+            {
+                "id": 1,
+                "companyName": "Company",
+                "email": "user@company.com",
+                "bio": null,
+                "address": null
+            },
+            {
+                "id": 2,
+                "companyName": "Apple",
+                "email": "hr@apple.com",
+                "bio": null,
+                "address": "1 Infinite Loop"
+            }
+        ]
+    ```
 
 ---
 
@@ -372,15 +442,15 @@
 
     > On success return object
 
-```
-    {
-        "id": 2,
-        "companyName": "Apple",
-        "email": "hr@apple.com",
-        "bio": null,
-        "address": "1 Infinite Loop"
-    }
-```
+    ```
+        {
+            "id": 2,
+            "companyName": "Apple",
+            "email": "hr@apple.com",
+            "bio": null,
+            "address": "1 Infinite Loop"
+        }
+    ```
 
 ---
 
@@ -401,29 +471,29 @@
 
     > On success return object
 
-```
-    {
-        "id": 2,
-        "companyName": "Apple",
-        "email": "hr@apple.com",
-        "bio": null,
-        "address": "1 Infinite Loop",
-        "companyJobs": [
-            {
-                "id": 3,
-                "jobTitle": "title",
-                "jobPosition": "Position",
-                "jobDescription": "Description",
-                "jobRequirements": "Requirements",
-                "jobSalary": 100000,
-                "jobTags": ["tech", "janitor"],
-                "jobOpenDate": "March 11th, 2019",
-                "jobCloseDate": "June 1st, 2019",
-                "company_id": 2
-            }
-        ]
-    }
-```
+    ```
+        {
+            "id": 2,
+            "companyName": "Apple",
+            "email": "hr@apple.com",
+            "bio": null,
+            "address": "1 Infinite Loop",
+            "companyJobs": [
+                {
+                    "id": 3,
+                    "jobTitle": "title",
+                    "jobPosition": "Position",
+                    "jobDescription": "Description",
+                    "jobRequirements": "Requirements",
+                    "jobSalary": 100000,
+                    "jobTags": ["tech", "janitor"],
+                    "jobOpenDate": "March 11th, 2019",
+                    "jobCloseDate": "June 1st, 2019",
+                    "company_id": 2
+                }
+            ]
+        }
+    ```
 
 ---
 
@@ -469,7 +539,11 @@
 
 ---
 
-#### Jobs
+5. `Delete Company` <a name='deleteCompany'></a>
+
+---
+
+## Jobs
 
 1. `Get All Jobs` <a name='getAllJobs'></a>
 
@@ -488,35 +562,35 @@
 
     > On success return array
 
-```
+    ```
 
-    [
-        {
-            "id": 1,
-            "jobTitle": "Dynamic Program Administrator",
-            "jobPosition": "Consultant",
-            "jobDescription": "Direct",
-            "jobRequirements": "Web",
-            "jobSalary": 553,
-            "jobTags": "tempora",
-            "jobOpenDate": "1552312445647.0",
-            "jobCloseDate": "1579476170156.0",
-            "company_id": 11
-        },
-        {
-            "id": 2,
-            "jobTitle": "International Configuration Developer",
-            "jobPosition": "Supervisor",
-            "jobDescription": "Future",
-            "jobRequirements": "Marketing",
-            "jobSalary": 206,
-            "jobTags": "nostrum",
-            "jobOpenDate": "1552303764015.0",
-            "jobCloseDate": "1579102031521.0",
-            "company_id": 4
-        }
-    ]
-```
+        [
+            {
+                "id": 1,
+                "jobTitle": "Dynamic Program Administrator",
+                "jobPosition": "Consultant",
+                "jobDescription": "Direct",
+                "jobRequirements": "Web",
+                "jobSalary": 553,
+                "jobTags": "tempora",
+                "jobOpenDate": "1552312445647.0",
+                "jobCloseDate": "1579476170156.0",
+                "company_id": 11
+            },
+            {
+                "id": 2,
+                "jobTitle": "International Configuration Developer",
+                "jobPosition": "Supervisor",
+                "jobDescription": "Future",
+                "jobRequirements": "Marketing",
+                "jobSalary": 206,
+                "jobTags": "nostrum",
+                "jobOpenDate": "1552303764015.0",
+                "jobCloseDate": "1579102031521.0",
+                "company_id": 4
+            }
+        ]
+    ```
 
 ---
 
@@ -570,20 +644,20 @@
 
     > On success return object
 
-```
-    {
-    "id": 13,
-    "jobTitle": "Customer Research Apprentice",
-    "jobPosition": "Executive",
-    "jobDescription": "Lead",
-    "jobRequirements": "Accounts",
-    "jobSalary": 704,
-    "jobTags": "voluptas",
-    "jobOpenDate": "1552282766773.0",
-    "jobCloseDate": "1579250581673.0",
-    "company_id": 1
-}
-```
+    ```
+        {
+        "id": 13,
+        "jobTitle": "Customer Research Apprentice",
+        "jobPosition": "Executive",
+        "jobDescription": "Lead",
+        "jobRequirements": "Accounts",
+        "jobSalary": 704,
+        "jobTags": "voluptas",
+        "jobOpenDate": "1552282766773.0",
+        "jobCloseDate": "1579250581673.0",
+        "company_id": 1
+    }
+    ```
 
 ---
 
@@ -646,9 +720,51 @@
 
 ---
 
-<a name='axios_examples'></a>
+6. `Get jobs for signed in Company` <a name='jobsInfo'></a>
+
+---
+
+7. `Save job to user profile` <a name='saveToUser'></a>
+
+---
+
+8. `Remove job from use profile` <a name='removeFromUser'></a>
+
+_Method URL: /_
+
+_HTTP method: [GET]_
+
+### Headers
+
+| name          | type   | required | description                          |
+| ------------- | ------ | -------- | ------------------------------------ |
+| Content-type  | String | Yes      | Must be application/json             |
+| Authorization | String | Yes      | Token must be from a company account |
+
+### Body
+
+| name | type   | required | description |
+| ---- | ------ | -------- | ----------- |
+| item | String | No       |             |
+
+#### Example
+
+```
+    {
+        jobSalary: 50000,
+    }
+```
+
+### Response
+
+> On success return `1`
+
+
+--
 
 ## Axios Examples
+
+<a name='axios_examples'></a>
 
 1. `Axios Post Request` <a name='axiosPost'></a>
 
@@ -669,3 +785,4 @@
     ```
 
 ---
+

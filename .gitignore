@@ -86,4 +86,4 @@ typings/
 .dynamodb/
 .gitignore
 
-db/
+.DS_Store
